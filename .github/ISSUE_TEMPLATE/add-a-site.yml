@@ -1,0 +1,58 @@
+name: अपनी साइट जोड़िए · Add a site
+description: इस तरह की कोई साइट बनाई है, या कोई छूट गई है? / Built one of these, or know one we missed?
+title: "साइट: "
+labels: ["new site"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        एक लिंक ही काफ़ी है — बाक़ी सब हम ख़ुद निकाल लेंगे (स्क्रीनशॉट, रंग, गिनती)।
+        One link is enough — the screenshot, colours and live count are picked up automatically.
+
+  - type: input
+    id: url
+    attributes:
+      label: साइट का लिंक · Site link
+      placeholder: https://apni-site.vercel.app
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mine
+    attributes:
+      label: आपने बनाई है? · Did you build it?
+      options:
+        - हाँ, मेरी साइट है · Yes, it's mine
+        - "नहीं, किसी और की — बस बता रहा/रही हूँ · No, just passing it on"
+    validations:
+      required: true
+
+  - type: input
+    id: credit
+    attributes:
+      label: किसका नाम लिखें? · Who gets the credit?
+      description: नाम या X हैंडल / name or X handle — @handle
+      placeholder: "@aapka_handle"
+    validations:
+      required: true
+
+  - type: input
+    id: oneline
+    attributes:
+      label: एक लाइन में क्या है इसमें? · One line about it
+      placeholder: रात की ट्रेन और पुराने गाने
+
+  - type: dropdown
+    id: row
+    attributes:
+      label: कौन सी लाइन? · Which row?
+      options:
+        - चाय और टपरी · Chai & Tapri
+        - ट्रक और सड़क · Truck & Road
+        - सफ़र और सवारी · Journeys & Rides
+        - त्योहार और जश्न · Festival & Baraat
+        - देसी रेडियो · Regional Radio
+        - दुकान और अड्डा · Shops & Addas
+        - काम और किस्मत · Work & Kismat
+        - गली और पुराने दिन · Gali & Old Days
+        - पता नहीं · Not sure

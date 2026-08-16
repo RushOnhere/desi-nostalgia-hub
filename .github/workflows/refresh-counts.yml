@@ -1,0 +1,49 @@
+# Re-reads every site's live count and commits the result.
+# No server: GitHub runs the scraper on a schedule, the commit triggers a
+# redeploy, and the page is never more than ~20 minutes stale.
+name: refresh counts
+
+on:
+  schedule:
+    - cron: '*/20 * * * *'   # every 20 minutes
+  workflow_dispatch:          # and a manual "run now" button
+
+concurrency:
+  group: refresh-counts
+  cancel-in-progress: true
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright + Chromium
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i -D playwright@latest
+          npx playwright install --with-deps chromium
+
+      - name: Read the counts
+        run: node scrape-counts.js
+        env:
+          PLAYWRIGHT_PATH: ./node_modules/playwright
+
+      - name: Commit if anything moved
+        run: |
+          git config user.name  "counts bot"
+          git config user.email "actions@github.com"
+          git add crowd.js
+          if git diff --staged --quiet; then
+            echo "no change in the numbers"
+          else
+            git commit -m "counts: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
