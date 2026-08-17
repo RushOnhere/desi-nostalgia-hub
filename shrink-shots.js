@@ -3,7 +3,7 @@
 const { chromium } = require('E:/Claude Stuff/motion-kit/node_modules/playwright');
 const fs = require('fs'), path = require('path');
 
-const W = 900, Q = 0.6;
+const W = 700, Q = 0.62;
 const shots = JSON.parse(fs.readFileSync(path.join(__dirname, 'shots.json'), 'utf8'));
 
 (async () => {

@@ -1186,6 +1186,7 @@ footer a:hover { color: var(--saffron); }
   border: 1px dashed var(--line-2); background: rgba(0,0,0,.22);
   font: 400 14px/1.6 var(--sans); color: var(--muted); white-space: pre-wrap; word-break: break-word;
 }
+.sheet-go { width: 100%; justify-content: center; height: 52px; font-size: 15px; margin-top: 4px; }
 .sheet-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .sheet-actions .btn { height: 44px; }
 .sheet-actions .btn svg { width: 14px; height: 14px; }
@@ -1357,40 +1358,11 @@ footer a:hover { color: var(--saffron); }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
     <h2 id="submit-title">अपनी साइट जोड़िए</h2>
-    <p class="seat-note" id="seat-note"></p>
-    <p class="sheet-lede">इस तरह की कोई साइट बनाई है, या कोई छूट गई है? नीचे भर दीजिए — एक तैयार पोस्ट बन जाएगी, वही भेज दीजिए।</p>
-
-    <label class="field"><span>साइट का पता</span>
-      <input id="s-url" type="url" placeholder="https://apni-site.vercel.app" autocomplete="off" spellcheck="false" />
-    </label>
-    <label class="field"><span>नाम या एक्स हैंडल</span>
-      <input id="s-who" type="text" placeholder="@aapka_handle" autocomplete="off" spellcheck="false" />
-    </label>
-    <label class="field"><span>एक लाइन में क्या है इसमें</span>
-      <input id="s-what" type="text" placeholder="जैसे — रात की ट्रेन और पुराने गाने" autocomplete="off" />
-    </label>
-
-    <div class="sheet-preview" id="s-preview"></div>
-
-    <div class="sheet-actions">
-      <a class="btn primary" id="s-github" href="#" target="_blank" rel="noopener noreferrer" hidden>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-        <span class="bi"><b lang="hi">GitHub पर जोड़िए</b><b lang="en">Add it on GitHub</b></span>
-      </a>
-      <a class="btn" id="s-form" href="#" target="_blank" rel="noopener noreferrer" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
-        <span class="bi"><b lang="hi">फ़ॉर्म भर दीजिए</b><b lang="en">Use the form</b></span>
-      </a>
-      <button class="btn" id="s-post" type="button">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8.1-9.3L1 2h7l4.8 6.3zM17.7 20.2h1.7L7.4 3.7H5.6z"/></svg>
-        <span class="bi"><b lang="hi">एक्स पर पोस्ट कीजिए</b><b lang="en">Post on X</b></span>
-      </button>
-      <button class="btn" id="s-copy" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        <span class="bi"><b lang="hi">कॉपी कीजिए</b><b lang="en">Copy</b></span>
-      </button>
-    </div>
-    <p class="sheet-note">यहाँ कोई सर्वर नहीं है — फ़ॉर्म सिर्फ़ पोस्ट का मसौदा बनाता है, आपकी बात आप ही भेजते हैं।</p>
+    <p class="sheet-lede">इस तरह की कोई साइट बनाई है, या कोई छूट गई है? एक लिंक काफ़ी है।</p>
+    <a class="btn primary sheet-go" id="s-form" href="#" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
+      <span class="bi"><b lang="hi">फ़ॉर्म भरिए</b><b lang="en">Fill the form</b></span>
+    </a>
   </div>
 </div>
 
@@ -1500,7 +1472,7 @@ const STR = {
     footer: 'सूची <a href="https://x.com/suraj_sharma14/status/2087990257325412654" target="_blank" rel="noopener noreferrer">@suraj_sharma14 के धागे</a> और उसके जवाबों से · हर वेबसाइट का श्रेय उसे बनाने वाले को।',
     keys: ['<kbd>/</kbd> खोज', '<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> चलिए', '<kbd>↵</kbd> खोलिए', '<kbd>T</kbd> टपरी मोड', '<kbd>R</kbd> कुछ भी', '<kbd>M</kbd> चुप'],
     sheetTitle: 'अपनी साइट जोड़िए',
-    sheetLede: 'इस तरह की कोई साइट बनाई है, या कोई छूट गई है? नीचे भर दीजिए — एक तैयार पोस्ट बन जाएगी, वही भेज दीजिए।',
+    sheetLede: 'इस तरह की कोई साइट बनाई है, या कोई छूट गई है? एक लिंक काफ़ी है।',
     fUrl: 'साइट का पता', fWho: 'नाम या एक्स हैंडल', fWhat: 'एक लाइन में क्या है इसमें',
     post: 'एक्स पर पोस्ट कीजिए', copy: 'कॉपी कीजिए',
     sheetNote: 'यहाँ कोई सर्वर नहीं है — फ़ॉर्म सिर्फ़ पोस्ट का मसौदा बनाता है, आपकी बात आप ही भेजते हैं।',
@@ -1545,7 +1517,7 @@ const STR = {
     footer: 'Collected from <a href="https://x.com/suraj_sharma14/status/2087990257325412654" target="_blank" rel="noopener noreferrer">@suraj_sharma14’s thread</a> and its replies · every site belongs to whoever built it.',
     keys: ['<kbd>/</kbd> search', '<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> move', '<kbd>↵</kbd> open', '<kbd>T</kbd> tapri mode', '<kbd>R</kbd> random', '<kbd>M</kbd> mute'],
     sheetTitle: 'Add your site',
-    sheetLede: 'Built one of these, or know one we missed? Fill this in — it drafts a post, and you send it.',
+    sheetLede: 'Built one of these, or know one we missed? One link is enough.',
     fUrl: 'Site address', fWho: 'Name or X handle', fWhat: 'One line about it',
     post: 'Post on X', copy: 'Copy',
     sheetNote: 'There is no server here — the form only drafts the post. You send it yourself.',
@@ -1934,6 +1906,18 @@ const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { rootMargin: '0px 0px -8% 0px', threshold: .05 });
 
+/* decoding 68 data-URI previews up front froze the first paint for ~200ms.
+   Give each tile its picture only as it comes near the viewport. */
+const imgIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const img = e.target;
+    imgIO.unobserve(img);
+    const src = img.dataset.src;
+    if (src) { img.src = src; delete img.dataset.src; }
+  });
+}, { rootMargin: '600px 0px' });
+
 /* credit sits on every card. an unconfirmed handle is marked as unconfirmed
    rather than stated as fact — crediting the wrong person is the one mistake
    that would cost us the goodwill of the people who built all of this. */
@@ -1972,7 +1956,7 @@ function buildCard(site, i, opt) {
       '<span class="dom">' + pretty(site.u) + '</span>' +
       '<span class="live-chip"><i></i>LIVE</span>' +
       '<span class="open">' + T().open + ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>' +
-      (shot ? '<img src="' + shot + '" alt="' + titleOf(site) + '" loading="lazy" decoding="async" />' : '') +
+      (shot ? '<img alt="' + titleOf(site) + '" decoding="async" />' : '') +
       '<span class="glyph">' + site.g + '</span>' +
       '<p class="fallback-title">' + titleOf(site) + '</p>' +
       (site.down ? '<span class="down-note">' + T().down + '</span>' : '') +
@@ -2000,10 +1984,11 @@ function buildCard(site, i, opt) {
   const img = a.querySelector('.screen img');
   const ready = () => { a.classList.add('ready'); setTimeout(() => sk.remove(), 600); };
   if (!img) ready();
-  else if (img.complete && img.naturalWidth) ready();
   else {
     img.addEventListener('load', ready, { once: true });
     img.addEventListener('error', ready, { once: true });
+    if (opt.big || i < 4) { img.src = shot; }   // the ones already on screen
+    else { img.dataset.src = shot; imgIO.observe(img); }
   }
 
   a.addEventListener('pointerenter', () => { Sfx.hover(); ambient(pal.a, pal.b); LivePreview.hover(a, site); });
@@ -2196,7 +2181,7 @@ function renderSeats(list) {
       b.setAttribute('aria-label', T().bookSeat);
       b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
       b.addEventListener('pointerenter', () => Sfx.hover());
-      b.addEventListener('click', () => { Sfx.tick(); Submit.show(catLabel(row.cat.id)); });
+      b.addEventListener('click', () => { Sfx.tick(); Submit.show(); });
       seats.appendChild(b);
     }
 
@@ -2473,36 +2458,13 @@ document.addEventListener('keydown', (e) => {
    ============================================================ */
 const Submit = (() => {
   const el = document.getElementById('submit');
-  const url = document.getElementById('s-url');
-  const who = document.getElementById('s-who');
-  const what = document.getElementById('s-what');
-  const prev = document.getElementById('s-preview');
-  const seatNote = document.getElementById('seat-note');
-
-  function draft() {
-    const u = url.value.trim();
-    const w = who.value.trim();
-    const d = what.value.trim();
-    const handle = w && !w.startsWith('@') && !w.includes(' ') ? '@' + w : w;
-    return T().draft + '\n' +
-      (u || T().fUrl) +
-      (d ? '\n' + d : '') +
-      (handle ? '\n' + T().draftBy + handle : '') +
-      '\n\n#DesiNostalgia';
-  }
-  function refresh() { prev.textContent = draft(); if (window.wireSubmitRoutes) wireSubmitRoutes(); }
-  [url, who, what].forEach(i => i.addEventListener('input', refresh));
-
   return {
     get open() { return el.classList.contains('on'); },
-    show(seatFor) {
-      seatNote.textContent = seatFor ? T().seatFor(seatFor) : '';
-      seatNote.style.display = seatFor ? '' : 'none';
+    show() {
+      document.getElementById('s-form').href = SUBMIT_TO.form || '#';
       el.classList.add('on');
       el.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-      refresh();
-      setTimeout(() => url.focus(), 60);
       Sfx.tick();
     },
     hide() {
@@ -2511,7 +2473,6 @@ const Submit = (() => {
       document.body.style.overflow = '';
       Sfx.release();
     },
-    draft,
   };
 })();
 
@@ -2545,52 +2506,11 @@ function setView(v) {
 });
 document.getElementById('submitbtn').addEventListener('pointerenter', () => Sfx.hover());
 document.getElementById('submit-close').addEventListener('click', () => Submit.hide());
+document.getElementById('s-form').addEventListener('pointerenter', () => Sfx.hover());
+document.getElementById('s-form').addEventListener('pointerdown', () => Sfx.launch());
 document.getElementById('submit').addEventListener('click', e => { if (e.target.id === 'submit') Submit.hide(); });
 
-/* point the two links at wherever submissions are being collected. Whatever is
-   not configured stays hidden, so the sheet never shows a dead button. */
-window.wireSubmitRoutes = wireSubmitRoutes;
-function wireSubmitRoutes() {
-  const draft = Submit.draft();
-  const ghBtn = document.getElementById('s-github');
-  const formBtn = document.getElementById('s-form');
-  const url = (document.getElementById('s-url').value || '').trim();
 
-  if (SUBMIT_TO.repo) {
-    const q = new URLSearchParams({
-      template: 'add-a-site.yml',
-      title: 'साइट: ' + (url || ''),
-      url: url,
-      credit: (document.getElementById('s-who').value || '').trim(),
-      oneline: (document.getElementById('s-what').value || '').trim(),
-    });
-    ghBtn.href = 'https://github.com/' + SUBMIT_TO.repo + '/issues/new?' + q.toString();
-    ghBtn.hidden = false;
-  }
-  if (SUBMIT_TO.form) {
-    formBtn.href = SUBMIT_TO.form;
-    formBtn.hidden = false;
-  }
-  // exactly one primary: the best route available
-  ghBtn.classList.toggle('primary', !!SUBMIT_TO.repo);
-  formBtn.classList.toggle('primary', !SUBMIT_TO.repo && !!SUBMIT_TO.form);
-  document.getElementById('s-post').classList.toggle('primary', !SUBMIT_TO.repo && !SUBMIT_TO.form);
-  return draft;
-}
-document.getElementById('s-github').addEventListener('pointerdown', () => Sfx.launch());
-document.getElementById('s-form').addEventListener('pointerdown', () => Sfx.launch());
-
-document.getElementById('s-post').addEventListener('click', () => {
-  Sfx.launch();
-  window.open('https://x.com/intent/post?text=' + encodeURIComponent(Submit.draft()), '_blank', 'noopener');
-});
-document.getElementById('s-copy').addEventListener('click', async (e) => {
-  Sfx.click();
-  try {
-    await navigator.clipboard.writeText(Submit.draft());
-    say(T().copied);
-  } catch { say(T().copyFail); }
-});
 
 /* ============================================================
    6. TAPRI MODE — fullscreen channel surfer
@@ -2819,11 +2739,6 @@ function paintStatic() {
 
   document.getElementById('submit-title').textContent = t.sheetTitle;
   document.querySelector('.sheet-lede').textContent = t.sheetLede;
-  const fs_ = document.querySelectorAll('.field span');
-  fs_[0].textContent = t.fUrl; fs_[1].textContent = t.fWho; fs_[2].textContent = t.fWhat;
-  document.getElementById('s-post').lastChild.textContent = ' ' + t.post;
-  document.getElementById('s-copy').lastChild.textContent = ' ' + t.copy;
-  document.querySelector('.sheet-note').textContent = t.sheetNote;
 
   document.querySelector('.tv-brand').textContent = t.tvBrand;
   document.getElementById('tv-open').textContent = t.tvOpen;
