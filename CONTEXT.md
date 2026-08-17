@@ -11,8 +11,17 @@ quietly undone.
 A single-page archive of Indian "nostalgia websites" — solo-built micro-sites
 that recreate one slice of desi life with period music: a chai tapri, a truck
 cabin, a state roadways bus, a barbershop, a garba night, a Bollywood party
-room. The trend started from a viral X thread on 13 August 2026 by
-[@suraj_sharma14](https://x.com/suraj_sharma14/status/2087990257325412654).
+room.
+
+**Where the trend actually started** (corrected 18 Aug after research — the
+earlier note here said the thread started it, which is wrong and would read as
+not having done the reading): [@s4tr2](https://x.com/s4tr2) posted the first one
+on **7 August 2026** — `the-nostalgia.vercel.app`, now redirecting to
+`nostalgiahits.in`. It broke out when [@ybhrdwj](https://x.com/ybhrdwj) shipped
+**saloon.wtf** — ~18k likes, ~5.2M views, by far the biggest node in the niche.
+[@suraj_sharma14's thread](https://x.com/suraj_sharma14/status/2087990257325412654)
+came later and *collected* them; it is where this archive was seeded from, not
+where the trend began. Say it that way in any post.
 
 The page shows every site as a tile with a real screenshot, its own colours,
 its maker's credit, and how many people are inside it right now.
@@ -22,17 +31,21 @@ its maker's credit, and how many people are inside it right now.
 - **Deploy target**: Vercel, static, no build step
 - **Language**: Hindi-first, with an EN toggle
 
-## 2. Current state (17 Aug 2026)
+## 2. Current state (18 Aug 2026)
 
 | | |
 |---|---|
-| sites | **86** |
-| screenshots | 86, ~3.9 MB total in `shots.js` |
-| embeddable live | 80 of 86 |
+| sites | **87** |
+| screenshots | 87, ~3.9 MB total in `shots.js` |
+| embeddable live | 81 of 87 |
 | sites reporting a count | 45 (43 live, 2 cumulative) |
 | counters that never move | 11 — excluded from totals |
 | trusted live total | ~4,137 |
-| maker credited | 36 of 86 (32 confirmed) — **50 still unknown** |
+| maker credited | 39 of 87 (35 confirmed) — **48 still unknown** |
+
+Newest entry: `townbus.vercel.app` (Tamil town bus, @iamAnish) — a *third*
+distinct town-bus site, separate from `townbus.site` and `town-bus.vercel.app`.
+Do not merge them.
 
 ## 3. Files that ship
 
@@ -194,8 +207,16 @@ Then: `recapture.js` (with the new URL in `recapture.json`) → `shrink-shots.js
 
 ## 10. Open items
 
-1. **50 of 86 sites have no maker credited.** Biggest gap in the archive's
-   credibility as *the* index.
+1. **48 of 87 sites have no maker credited.** Biggest gap in the archive's
+   credibility as *the* index. Priority order is by reach: the makers whose
+   posts carry the niche should not be the ones showing "पुष्टि बाकी".
+   Already fixed: saloon.wtf and deluxesaloon.space are **Yash Bhardwaj
+   (@ybhrdwj)** — confirmed twice, by his own launch post and by
+   `town-bus.vercel.app` printing "Inspired by Deluxe Saloon by Yash Bhardwaj".
+   Still open: `town-bus.vercel.app` is credited to @ananyeahplsno on
+   third-party evidence only and the page itself names no builder — it stays
+   `mv` off until the maker confirms. Do not guess an attribution to fill a
+   gap; an empty credit is recoverable, a wrong one is not.
 2. **Domain not bought.** `nukkad.fm`, `nukkad.wtf`, `chowk.fm`, `tapri.fm`
    were all free when last checked. After pointing a domain, the `og.png` meta
    tags must become absolute URLs or link previews break, and `CFG.home` in

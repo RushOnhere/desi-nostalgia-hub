@@ -1569,8 +1569,8 @@ const titleOf = s => (LANG === 'en' && s.te) ? s.te : s.t;
 const descOf  = s => (LANG === 'en' && s.de) ? s.de : s.d;
 
 const SITES = [
-  { t:'बीस रुपये वाला सैलून', u:'https://saloon.wtf',                     d:'बीस रुपये की कटिंग और नब्बे के दशक के गाने। पूरा सिलसिला यहीं से शुरू हुआ।', c:'dukaan', g:'💈', h:14,  p:'p-stripe', k:'saloon barbershop haircut' , te:"The ₹20 Saloon", de:"A ₹20 haircut and 90s barbershop bangers. The one that started the whole rabbit hole." },
-  { t:'डीलक्स सैलून',      u:'https://deluxesaloon.space',                 d:'वही शीशा, वही कुर्सी, बस पंखा थोड़ा बेहतर।', c:'dukaan', g:'✂️', h:340, p:'p-stripe', k:'deluxe saloon' , te:"Deluxe Saloon", de:"The upgrade. Same mirror, same chair, slightly fancier ceiling fan." },
+  { t:'बीस रुपये वाला सैलून', u:'https://saloon.wtf',                     d:'बीस रुपये की कटिंग और नब्बे के दशक के गाने। पूरा सिलसिला यहीं से शुरू हुआ।', c:'dukaan', g:'💈', h:14,  p:'p-stripe', maker:'Yash Bhardwaj', handle:'ybhrdwj', mv:1, k:'saloon barbershop haircut' , te:"The ₹20 Saloon", de:"A ₹20 haircut and 90s barbershop bangers. The one that started the whole rabbit hole." },
+  { t:'डीलक्स सैलून',      u:'https://deluxesaloon.space',                 d:'वही शीशा, वही कुर्सी, बस पंखा थोड़ा बेहतर।', c:'dukaan', g:'✂️', h:340, p:'p-stripe', maker:'Yash Bhardwaj', handle:'ybhrdwj', mv:1, k:'deluxe saloon' , te:"Deluxe Saloon", de:"The upgrade. Same mirror, same chair, slightly fancier ceiling fan." },
   { t:'पान वाला',         u:'https://pan-wala.vercel.app',                d:'नुक्कड़ की पान की दुकान — मीठा पत्ता, रेडियो चालू, सब एक दूसरे को जानते हैं।', c:'dukaan', g:'🌿', h:120, p:'p-check', k:'pan wala paan shop' , te:"Pan Wala", de:"Corner pan shop energy — meetha patti, radio on, everyone knows everyone." },
   { t:'अपना ढाबा',        u:'https://apnadhaba.com',                      d:'हाईवे का ढाबा, पूरी थाली, पीछे चारपाई। ऑर्डर आवाज़ लगाकर।', c:'dukaan', g:'🍛', h:28,  p:'p-check', k:'apna dhaba thali food' , te:"Apna Dhaba", de:"Highway dhaba, full thali, charpai out back. Orders placed by shouting." },
 
@@ -1663,7 +1663,9 @@ const SITES = [
   { t:'इलैयाराजा की रात', u:'https://ilaya-raja.vercel.app', d:'इलैयाराजा की देर रात वाली प्लेलिस्ट — सूरज निकलने तक।', c:'radio', g:'🌙', h:258, p:'p-wave', k:'ilaiyaraaja late night tamil playlist', maker:'', handle:'meetlynnjoseph', te:'Ilaiyaraaja Late Night', de:'An Ilaiyaraaja late-night playlist that runs until the sun comes up.' },
   { t:'कंडक्टर एफ़एम', u:'https://conductor-fm.nikhilkumar007.com', d:'आख़िरी स्टॉप, सबसे अच्छा गाना — घर लौटती आख़िरी बस।', c:'bus', g:'🎫', h:44, p:'p-grid', k:'conductor fm last bus home bengaluru playlist', maker:'', handle:'Nikhilkdev007', te:'Conductor FM', de:'“Last stop, best song” — the last-bus-home conductor playlist.' },
   { t:'गली की धुन', u:'https://gully-cricket-radio.vercel.app', d:'गली क्रिकेट और गर्मी की छुट्टियाँ — हर छक्का पड़ोसी की दीवार पार।', c:'retro', g:'🏏', h:96, p:'p-check', k:'gully ki dhun cricket radio street summer holidays rec 2001', maker:'', handle:'', te:'Gully Ki Dhun', de:'Street-cricket and Indian-summer radio, for every six over the neighbour’s wall.' },
-  { t:'टपरी एफ़एम', u:'https://taprifm.xyz', d:'रेट्रो रेडियो डायल घुमाइए — चाय, धुन, अड्डा।', c:'chai', g:'📻', h:20, p:'p-dots', k:'tapri fm retro radio dial chai dhun adda', maker:'Parth Kapoor', handle:'parth__kapoor', mv:1, te:'Tapri FM', de:'A retro radio dial you drag across chai-time classics — CHAI · DHUN · ADDA.' },];
+  { t:'टपरी एफ़एम', u:'https://taprifm.xyz', d:'रेट्रो रेडियो डायल घुमाइए — चाय, धुन, अड्डा।', c:'chai', g:'📻', h:20, p:'p-dots', k:'tapri fm retro radio dial chai dhun adda', maker:'Parth Kapoor', handle:'parth__kapoor', mv:1, te:'Tapri FM', de:'A retro radio dial you drag across chai-time classics — CHAI · DHUN · ADDA.' },
+  { t:'டவுன் பஸ் ஹிட்ஸ்', u:'https://townbus.vercel.app', d:'தமிழ் டவுன் பஸ் — ₹5 टिकट, एक स्पीकर, और सफ़र छोटा करने वाले गाने।', c:'bus', g:'🚌', h:36, p:'p-stripe', k:'town bus hits tamil iamanish ₹5 ticket one speaker', maker:'Anish', handle:'iamAnish', mv:1, te:'Town Bus Hits', de:'A Tamil town bus — ₹5 ticket, one speaker, songs that made the journey shorter.' },
+];
 
 /* ============================================================
    2. PREMIUM CLICK SOUND (synthesised — no files, no network)
