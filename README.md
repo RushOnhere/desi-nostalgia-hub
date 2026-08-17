@@ -1,6 +1,6 @@
 # देसी नॉस्टैल्जिया आर्काइव
 
-86 Indian nostalgia websites on one screen, with real screenshots and how many
+87 Indian nostalgia websites on one screen, with real screenshots and how many
 people each site says are inside it right now.
 
 ## Deploying
@@ -17,7 +17,7 @@ That is the whole deploy. Files that must ship:
 | file | what it is |
 |---|---|
 | `index.html` | the page — markup, styles, script, inlined fonts |
-| `shots.js` | 86 screenshots as data URIs (~3.9 MB) |
+| `shots.js` | 87 screenshots as data URIs (~3.9 MB) |
 | `palette.js` | two colours pulled out of each screenshot |
 | `crowd.js` | each site's scraped count + the time it was read |
 | `frameable.js` | which sites allow being embedded live on hover |
@@ -29,9 +29,12 @@ That is the whole deploy. Files that must ship:
 Netlify, Cloudflare Pages or GitHub Pages work identically — point them at this
 folder, no build command.
 
-After pointing a domain at it, replace the relative `/og.png` in the meta tags
-with the absolute URL (`https://yourdomain/og.png`) — X and WhatsApp will not
-resolve a relative image.
+Live at **https://chowk.vercel.app**. The `og:image`, `og:url` and canonical
+tags are absolute against that host, because X and WhatsApp will not resolve a
+relative image — a relative `/og.png` unfurls as a grey box with no picture.
+If the host ever changes, run `node set-home-url.js` (one constant at the top)
+rather than editing the tags by hand; it also does `badge.js`, `robots.txt` and
+`sitemap.xml`.
 
 ## Keeping it fresh
 
@@ -106,7 +109,7 @@ public. The `service_role` key must never appear in this repo or on the page.
 One line for a maker to paste. It turns their scraped number into a measured
 one, and draws a small "N listening now" chip linking back here:
 
-    <script defer src="https://YOUR-DOMAIN/badge.js"></script>
+    <script defer src="https://chowk.vercel.app/badge.js"></script>
 
 Add `data-chip="off"` to report the count without showing the chip.
 

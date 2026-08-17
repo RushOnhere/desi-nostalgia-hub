@@ -217,11 +217,15 @@ Then: `recapture.js` (with the new URL in `recapture.json`) → `shrink-shots.js
    third-party evidence only and the page itself names no builder — it stays
    `mv` off until the maker confirms. Do not guess an attribution to fill a
    gap; an empty credit is recoverable, a wrong one is not.
-2. **Domain not bought.** `nukkad.fm`, `nukkad.wtf`, `chowk.fm`, `tapri.fm`
-   were all free when last checked. After pointing a domain, the `og.png` meta
-   tags must become absolute URLs or link previews break, and `CFG.home` in
-   `badge.js` needs updating.
-3. **Not deployed yet** — `npx vercel --prod` or import the repo on Vercel.
+2. **No custom domain, by decision.** Rush's call on 18 Aug: a domain does not
+   make this profitable, X does. The home is `https://chowk.vercel.app` — a
+   bare desi noun, matching how every site in this trend is named, and free
+   when checked (`nukkad`, `gali`, `tapri`, `mohalla`, `adda` were all taken).
+   `set-home-url.js` holds that host in one constant and rewrites the meta
+   tags, `badge.js`, `robots.txt` and `sitemap.xml` from it.
+3. **Deployed.** The Vercel project must be renamed to `chowk` in the
+   dashboard, or every absolute URL in the page points at a host that is not
+   serving it. The CLI here has no valid token, so that step is manual.
 4. **Screenshots ship as one 3.9 MB `shots.js`.** Every visitor downloads all
    86 even if they see twelve. Splitting them into individual files served by
    the CDN would cut a typical visit by ~87%. Not done.
