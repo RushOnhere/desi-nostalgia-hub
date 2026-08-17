@@ -2873,6 +2873,23 @@ const Presence = (() => {
     if (!me) { me = crypto.randomUUID(); localStorage.setItem('dna-visitor', me); }
   } catch { me = crypto.randomUUID(); }
 
+  // the archive's own count is private: it appears only for whoever arrived
+  // once with ?owner=<token>. Everyone else never sees it, and the public
+  // live_counts() does not return it either.
+  let ownerToken = null;
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.has('owner')) {
+      const v = q.get('owner');
+      if (v === 'off') localStorage.removeItem('dna-owner');
+      else if (v) localStorage.setItem('dna-owner', v);
+      q.delete('owner');
+      const clean = location.pathname + (q.toString() ? '?' + q : '') + location.hash;
+      history.replaceState(null, '', clean);   // keep it out of the visible URL
+    }
+    ownerToken = localStorage.getItem('dna-owner');
+  } catch {}
+
   const hereBox = document.getElementById('here');
   const hereNum = document.getElementById('here-num');
   let beat = null, poll = null, live = {};
@@ -2906,17 +2923,18 @@ const Presence = (() => {
 
   async function refresh() {
     try {
-      const r = await rpc('live_counts');
-      if (!r.ok) return;
-      const rows = await r.json();
-      live = {};
-      let here = 0;
-      rows.forEach(row => {
-        if (row.site === cfg.site) here = row.viewers;
-        else live[row.site] = row.viewers;
-      });
-      paintHere(here);
-      applyToCards();
+      const r = await rpc('live_counts');       // badge counts — public
+      if (r.ok) {
+        live = {};
+        (await r.json()).forEach(row => { live[row.site] = row.viewers; });
+        applyToCards();
+      }
+    } catch {}
+
+    if (!ownerToken) return;                    // nobody else even asks
+    try {
+      const h = await rpc('hub_viewers', { p_token: ownerToken });
+      if (h.ok) paintHere(await h.json());
     } catch {}
   }
 

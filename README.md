@@ -1,11 +1,12 @@
 # देसी नॉस्टैल्जिया आर्काइव
 
-65 Indian nostalgia websites on one screen, with real screenshots and how many
+86 Indian nostalgia websites on one screen, with real screenshots and how many
 people each site says are inside it right now.
 
 ## Deploying
 
-It is a static site. There is no build step, no server, no database.
+It is a static site: no build step and no server. Supabase is used only for the
+live presence count.
 
 ```bash
 npx vercel --prod
@@ -48,9 +49,8 @@ so far", but never enter the chowk, the totals or the crowd sort.
 Each reading is appended to `crowd-history.json`. Any counter that has not
 changed across three or more readings is marked `moved: false` — it still shows
 on its card, but with a grey dot instead of a live one, and it is left out of
-the headline total, the chowk ranking and the row totals. Right now that is 11
-of 40 sites, which is the difference between the honest 5,865 and the naive
-6,355.
+the headline total, the chowk ranking and the row totals. Sites whose counter never moves are excluded from the headline
+total, the chowk ranking and the row totals.
 
 The counts are read off each site by a headless browser, because a browser
 cannot fetch them cross-origin. Re-read them any time:
@@ -72,9 +72,18 @@ hard-coded, some are lifetime visitor totals rather than people present now.
 
 **Measured** — our own count, in real time, through Supabase. A visitor sends an
 anonymous heartbeat every 20 seconds and "here now" is distinct visitors seen in
-the last 45 seconds. The masthead chip (यहाँ अभी / here now) is this, for the
-archive itself. Any archived site carrying the badge gets a measured count too,
-marked with a brighter dot.
+the last 45 seconds. Any archived site carrying the badge gets a measured count
+this way, marked with a brighter dot — those are public, since that is the point
+of the badge.
+
+**How many people are on the archive itself is private.** The public
+`live_counts()` deliberately excludes it, so no visitor can read it even by
+calling the API directly. It is returned only by `hub_viewers(token)`, and the
+masthead chip (यहाँ अभी / here now) appears only in a browser that has the
+token. Arrive once at `?owner=<token>` — it is stored locally and stripped from
+the URL, so it never shows in the address bar or in a shared link. `?owner=off`
+forgets it. The token itself is **not in this repo**; only a SHA-256 hash of it
+is stored, in a table with RLS on and no policies.
 
 Schema lives in the Supabase project `nostalgiahub`:
 
@@ -83,7 +92,11 @@ Schema lives in the Supabase project `nostalgiahub`:
   an empty set, a direct insert returns 401.
 - `heartbeat(site, visitor)` — the only way in. Rejects anything that is not
   `hub` or a hostname, and prunes rows older than five minutes.
-- `live_counts()` — returns aggregates only, never raw rows.
+- `live_counts()` — badge counts only. Aggregates, never raw rows, and never
+  the archive's own count.
+- `hub_viewers(token)` — the archive's own count, for the owner only.
+- `owner_key` — one row holding a SHA-256 hash of the token. RLS on, no
+  policies, no grants: unreadable through the API.
 
 The key in `presence.js` is Supabase's **publishable** key and is meant to be
 public. The `service_role` key must never appear in this repo or on the page.

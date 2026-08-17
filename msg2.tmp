@@ -1,0 +1,16 @@
+Keep the archive's own live count private to the owner
+
+live_counts() no longer returns the 'hub' row at all, so a visitor cannot read
+it even by calling the API directly with the publishable key. The number comes
+only from hub_viewers(token), which compares a SHA-256 hash held in owner_key
+(RLS on, no policies, no grants).
+
+The masthead chip appears only in a browser that arrived once at ?owner=<token>;
+the token is stored locally and stripped from the URL so it never appears in the
+address bar or a shared link. ?owner=off forgets it. The token is not in this
+repo.
+
+Badge counts for the archived sites stay public -- that is the point of the
+badge -- and the scraped "people in these gallis right now" ticker is unchanged.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
