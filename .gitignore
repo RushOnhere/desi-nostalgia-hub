@@ -31,3 +31,4 @@ new-urls.txt
 index.test.html
 msg.tmp
 msg2.tmp
+msg*.tmp
