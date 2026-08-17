@@ -40,10 +40,22 @@ jobs:
         run: |
           git config user.name  "counts bot"
           git config user.email "actions@github.com"
-          git add crowd.js
+          # the history file is what lets a frozen counter be spotted — it has to
+          # be committed too, or every run starts from nothing
+          git add crowd.js crowd-history.json
           if git diff --staged --quiet; then
             echo "no change in the numbers"
-          else
-            git commit -m "counts: $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
+            exit 0
           fi
+          git commit -m "counts: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # a human push during the ~7 minute scrape would otherwise fail the run
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected, someone else committed — retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1

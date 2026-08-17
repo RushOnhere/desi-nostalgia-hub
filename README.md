@@ -15,10 +15,13 @@ That is the whole deploy. Files that must ship:
 
 | file | what it is |
 |---|---|
-| `index.html` | the page — markup, styles, script, inlined font |
-| `shots.js` | 65 screenshots as data URIs (~4 MB) |
+| `index.html` | the page — markup, styles, script, inlined fonts |
+| `shots.js` | 86 screenshots as data URIs (~3.9 MB) |
 | `palette.js` | two colours pulled out of each screenshot |
-| `crowd.js` | each site's live count + the timestamp it was read |
+| `crowd.js` | each site's scraped count + the time it was read |
+| `frameable.js` | which sites allow being embedded live on hover |
+| `presence.js` | Supabase config for the measured, real-time count |
+| `badge.js` | the one-liner makers embed so their count becomes measured |
 | `og.png` | the card X/WhatsApp show when the link is shared |
 | `favicon.svg`, `robots.txt`, `sitemap.xml`, `vercel.json` | the usual |
 
@@ -60,6 +63,39 @@ node refresh.js --shots      # counts + re-capture weak previews  (~15 min)
 Then redeploy. To automate, run `node refresh.js` on a cron / GitHub Action and
 commit the changed `crowd.js` — the page always shows the time of the reading,
 so it never claims to be more live than it is.
+
+## Two kinds of number
+
+**Scraped** — what a site prints in its own header, read every 20 minutes by the
+GitHub Action. Honest, but only as honest as that site's counter: some are
+hard-coded, some are lifetime visitor totals rather than people present now.
+
+**Measured** — our own count, in real time, through Supabase. A visitor sends an
+anonymous heartbeat every 20 seconds and "here now" is distinct visitors seen in
+the last 45 seconds. The masthead chip (यहाँ अभी / here now) is this, for the
+archive itself. Any archived site carrying the badge gets a measured count too,
+marked with a brighter dot.
+
+Schema lives in the Supabase project `nostalgiahub`:
+
+- `presence(site, visitor, seen_at)` — RLS on with **no policies**, so the public
+  key can neither read nor write rows directly. Verified: a direct read returns
+  an empty set, a direct insert returns 401.
+- `heartbeat(site, visitor)` — the only way in. Rejects anything that is not
+  `hub` or a hostname, and prunes rows older than five minutes.
+- `live_counts()` — returns aggregates only, never raw rows.
+
+The key in `presence.js` is Supabase's **publishable** key and is meant to be
+public. The `service_role` key must never appear in this repo or on the page.
+
+### The badge
+
+One line for a maker to paste. It turns their scraped number into a measured
+one, and draws a small "N listening now" chip linking back here:
+
+    <script defer src="https://YOUR-DOMAIN/badge.js"></script>
+
+Add `data-chip="off"` to report the count without showing the chip.
 
 ## The scripts
 

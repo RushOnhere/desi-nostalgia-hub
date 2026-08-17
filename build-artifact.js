@@ -12,7 +12,7 @@ const style = src.match(/<style>[\s\S]*?<\/style>/)[0];
 let  body   = src.match(/<body>([\s\S]*?)<\/body>/)[1].trim();
 
 // the artifact must be a single self-contained page: inline every data file
-for (const f of ['shots.js', 'palette.js', 'crowd.js', 'frameable.js']) {
+for (const f of ['shots.js', 'palette.js', 'crowd.js', 'frameable.js', 'presence.js']) {
   const src = fs.readFileSync(path.join(dir, f), 'utf8');
   body = body.replace('<script src="' + f + '"></script>', '<script>\n' + src + '\n</script>');
   if (body.includes('src="' + f + '"')) throw new Error(f + ' was not inlined — check the script tag');

@@ -1,0 +1,16 @@
+Live presence via Supabase, and fix the counts workflow
+
+The workflow failed once when a human push landed mid-scrape: its own push
+was then rejected. It now pulls with rebase and retries three times. It also
+commits crowd-history.json -- without it every run started from no history,
+so the frozen-counter detection never fired.
+
+Presence: an anonymous heartbeat every 20s, "here now" is distinct visitors
+seen in the last 45s. RLS denies all direct table access; the only way in is
+heartbeat() and the only way out is live_counts(), which returns aggregates.
+Verified the publishable key cannot read rows (empty set) or insert them (401).
+
+badge.js is the one-liner makers embed so their own count becomes measured
+rather than scraped.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
