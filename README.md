@@ -29,7 +29,7 @@ That is the whole deploy. Files that must ship:
 Netlify, Cloudflare Pages or GitHub Pages work identically — point them at this
 folder, no build command.
 
-Live at **https://chowk.vercel.app**. The `og:image`, `og:url` and canonical
+Live at **https://thechowk.vercel.app**. The `og:image`, `og:url` and canonical
 tags are absolute against that host, because X and WhatsApp will not resolve a
 relative image — a relative `/og.png` unfurls as a grey box with no picture.
 If the host ever changes, run `node set-home-url.js` (one constant at the top)
@@ -109,7 +109,7 @@ public. The `service_role` key must never appear in this repo or on the page.
 One line for a maker to paste. It turns their scraped number into a measured
 one, and draws a small "N listening now" chip linking back here:
 
-    <script defer src="https://chowk.vercel.app/badge.js"></script>
+    <script defer src="https://thechowk.vercel.app/badge.js"></script>
 
 Add `data-chip="off"` to report the count without showing the chip.
 

@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('E:/Claude Stuff/motion-kit/node_modules/playwright');
 
-const HOME = 'https://chowk.vercel.app';
+const HOME = 'https://thechowk.vercel.app';
 
 (async () => {
   const browser = await chromium.launch();
@@ -41,7 +41,8 @@ const HOME = 'https://chowk.vercel.app';
   if (!okSize) bad++;
   console.log((okSize ? 'ok   ' : 'FAIL ') + 'og.png'.padEnd(15) + kb + ' KB (X limit 5 MB)');
 
-  const stale = Object.values(meta).some(v => /desi-nostalgia-hub|nostalgiahub/.test(v));
+  // any host that is not the current one, including the two we tried and lost
+  const stale = Object.values(meta).some(v => /vercel\.app/.test(v) && !v.includes(HOME));
   if (stale) bad++;
   console.log((stale ? 'FAIL ' : 'ok   ') + 'old host'.padEnd(15) + (stale ? 'an old URL is still in the meta' : 'none left'));
 

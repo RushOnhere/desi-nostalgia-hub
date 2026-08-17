@@ -218,7 +218,7 @@ Then: `recapture.js` (with the new URL in `recapture.json`) → `shrink-shots.js
    `mv` off until the maker confirms. Do not guess an attribution to fill a
    gap; an empty credit is recoverable, a wrong one is not.
 2. **No custom domain, by decision.** Rush's call on 18 Aug: a domain does not
-   make this profitable, X does. The home is `https://chowk.vercel.app` — a
+   make this profitable, X does. The home is `https://thechowk.vercel.app` — a
    bare desi noun, matching how every site in this trend is named, and free
    when checked (`nukkad`, `gali`, `tapri`, `mohalla`, `adda` were all taken).
    `set-home-url.js` holds that host in one constant and rewrites the meta

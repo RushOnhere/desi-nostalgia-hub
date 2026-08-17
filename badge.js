@@ -15,7 +15,7 @@
   var CFG = {
     url: 'https://iomcpnyfnuvujgzamtbp.supabase.co',
     key: 'sb_publishable_ahLqxPOO8qFkYgQIJAQW6g_5CbDAdb5',
-    home: 'https://chowk.vercel.app',
+    home: 'https://thechowk.vercel.app',
     beatMs: 20000,
   };
 
