@@ -1,0 +1,11 @@
+Drop the private here-now chip; new footer
+
+The archive's own live count is gone from the page along with the owner token
+and the hub heartbeat -- only the scraped "people in these gallis right now"
+ticker remains. Badge counts for the archived sites are untouched.
+
+Footer loses the thread credit and the missing-credits note, and becomes
+"made with love, using Claude" with the Claude mark. The footer and the socials
+strip now carry the same frosted glass as the masthead and filter rail.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
