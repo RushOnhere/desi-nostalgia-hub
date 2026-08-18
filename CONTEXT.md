@@ -54,10 +54,19 @@ Not added: @BuildwithOmkarr's Ganpati site — his launch post is a video with
 no link in it, so there is nothing to point a card at yet.
 
 **Brand**: the archive is **द चौक / The Chowk** at **thechowk.online**
-(renamed 18 Aug).  holds the host in one constant and rewrites
-the meta tags, badge.js, robots.txt and sitemap.xml from it; 
-cuts thechowk.png into a masthead mark and a footer lockup, 
-builds the tab icons from that same mark.
+(renamed 18 Aug). `set-home-url.js` holds the host in one constant and rewrites
+the meta tags, `badge.js`, `robots.txt` and `sitemap.xml` from it. `make-logo.js`
+cuts `thechowk.png` into two crops — the monogram for the masthead, the full
+lockup for the footer — knocking the black ground out to transparency;
+`make-favicon.js` builds the tab icons from that same mark.
+
+**The masthead must not resize on load.** The count-up pill re-laid-out on every
+frame for ~2.5s because this Poppins subset has no tabular figures (`0` is
+13.11px, `1` is 6.64px), the reservation was taken from the final value rather
+than the worst case, and it ran before the inlined font had decoded. `.tick-num`
+and `.tick-label` now carry min-widths so the box does not depend on font
+metrics at all, and `runTicker` measures every digit after `fonts.ready`.
+Check with `trace-bar.js` and `poll-ticker.js` before touching that pill.
 
 
 ## 3. Files that ship
