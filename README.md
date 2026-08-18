@@ -1,6 +1,6 @@
 # देसी नॉस्टैल्जिया आर्काइव
 
-87 Indian nostalgia websites on one screen, with real screenshots and how many
+92 Indian nostalgia websites on one screen, with real screenshots and how many
 people each site says are inside it right now.
 
 ## Deploying
@@ -17,7 +17,7 @@ That is the whole deploy. Files that must ship:
 | file | what it is |
 |---|---|
 | `index.html` | the page — markup, styles, script, inlined fonts |
-| `shots.js` | 87 screenshots as data URIs (~3.9 MB) |
+| `shots.js` | 92 screenshots as data URIs (~3.9 MB) |
 | `palette.js` | two colours pulled out of each screenshot |
 | `crowd.js` | each site's scraped count + the time it was read |
 | `frameable.js` | which sites allow being embedded live on hover |
@@ -133,15 +133,27 @@ Add `data-chip="off"` to report the count without showing the chip.
 
 ## Where submissions come in
 
-Two routes, set in `SUBMIT_TO` near the top of the script in `index.html`:
+The "अपनी साइट जोड़िए" sheet is a real form: link, name, X handle, one line.
+It posts straight to Supabase — no redirect, no Google Form, no sign-in. The
+link is the only required field, and a bare domain is accepted (the scheme is
+added for them).
 
-- `form` — the Google Form (live). Public, no sign-in, 3 required questions.
-  Responses land in the linked Sheet; keep that Sheet private.
-- `repo` — set it to `user/repo` once this is on GitHub. The sheet then gains a
-  pre-filled issue link using `.github/ISSUE_TEMPLATE/add-a-site.yml`, and that
-  becomes the primary route — which suits an audience already living on GitHub.
+Rows land in `submissions`, which is locked down exactly like `presence`: RLS
+on with no policies, so the publishable key cannot read or write it. The only
+door is `submit_site()`, a security definer function that checks the URL parses
+as http(s) with a real hostname, that the handle is `[A-Za-z0-9_]{1,15}`, and
+that this browser has not sent more than five in the past hour. A URL already
+in the table comes back as a friendly "we have this one" rather than an error.
 
-Whatever is not configured stays hidden, so no dead buttons.
+Read what has come in:
+
+```sql
+select created_at, url, title, handle, note from submissions order by id desc;
+```
+
+A GitHub issue template also exists at `.github/ISSUE_TEMPLATE/add-a-site.yml`
+for people who would rather open an issue.
+
 
 ## Adding a site
 

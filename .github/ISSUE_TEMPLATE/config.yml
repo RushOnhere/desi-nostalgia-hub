@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: GitHub नहीं है? फ़ॉर्म भर दीजिए · No GitHub? Use the form
-    url: https://docs.google.com/forms/d/e/1FAIpQLSeTMr7q3-hSFLlJ6ewDl6mKek4XsVoT2sdOjTJtm7N2qrTBaQ/viewform
-    about: वही चार सवाल, बिना अकाउंट के / same four questions, no account needed
+  - name: GitHub नहीं है? साइट पर ही भेज दीजिए · No GitHub? Send it from the site
+    url: https://thechowk.vercel.app/
+    about: "अपनी साइट जोड़िए" खोलिए, लिंक डालिए, भेज दीजिए / open "Add your site", paste the link, send

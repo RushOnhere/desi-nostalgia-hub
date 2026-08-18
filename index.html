@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="87 देसी नॉस्टैल्जिया वेबसाइटें — चाय टपरी, ट्रक रेडियो, रोडवेज़ बस, नब्बे के कार्टून — एक ही स्क्रीन पर, असली स्क्रीनशॉट और लाइव भीड़ के साथ।" />
+<meta name="description" content="92 देसी नॉस्टैल्जिया वेबसाइटें — चाय टपरी, ट्रक रेडियो, रोडवेज़ बस, नब्बे के कार्टून — एक ही स्क्रीन पर, असली स्क्रीनशॉट और लाइव भीड़ के साथ।" />
 <meta name="theme-color" content="#06070b" media="(prefers-color-scheme: dark)" />
 <meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -11,13 +11,13 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://thechowk.vercel.app/" />
 <meta property="og:title" content="देसी नॉस्टैल्जिया आर्काइव · Desi Nostalgia Archive" />
-<meta property="og:description" content="87 sites, one screen. Chai tapris, truck radios, roadways buses, 90s cartoons — with real screenshots and how many people are inside each one right now." />
+<meta property="og:description" content="92 sites, one screen. Chai tapris, truck radios, roadways buses, 90s cartoons — with real screenshots and how many people are inside each one right now." />
 <meta property="og:image" content="https://thechowk.vercel.app/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="देसी नॉस्टैल्जिया आर्काइव" />
-<meta name="twitter:description" content="87 desi nostalgia sites, one screen — with live crowd counts." />
+<meta name="twitter:description" content="92 desi nostalgia sites, one screen — with live crowd counts." />
 <meta name="twitter:image" content="https://thechowk.vercel.app/og.png" />
 <link rel="canonical" href="https://thechowk.vercel.app/" />
 <title>देसी नॉस्टैल्जिया आर्काइव · Desi Nostalgia Archive</title>
@@ -1202,17 +1202,29 @@ footer a:hover { color: var(--saffron); }
 }
 .field input {
   width: 100%; height: 46px; padding: 0 15px; border-radius: 12px;
-  border: 1px solid var(--line); background: rgba(0,0,0,.28); color: var(--text);
+  border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text);
   font: 400 14.5px/1 var(--sans); outline: none;
   transition: border-color .2s var(--ease), background .2s var(--ease);
 }
 .field input::placeholder { color: #4d5566; }
-.field input:focus { border-color: var(--ivory); background: rgba(233,223,204,.05); }
+.field input:focus { border-color: var(--ivory); background: rgba(233,223,204,.06); }
 .sheet-preview {
   margin: 18px 0; padding: 15px 17px; border-radius: 12px; min-height: 76px;
   border: 1px dashed var(--line-2); background: rgba(0,0,0,.22);
   font: 400 14px/1.6 var(--sans); color: var(--muted); white-space: pre-wrap; word-break: break-word;
 }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+@media (max-width: 460px) { .field-row { grid-template-columns: 1fr; } }
+.field input:user-invalid { border-color: color-mix(in oklab, #c8503a 60%, var(--line)); }
+#s-form .sheet-go { cursor: pointer; }
+#s-form .sheet-go[disabled] { opacity: .55; cursor: default; }
+.f-msg {
+  margin: 12px 0 0; min-height: 19px;
+  font: 400 13px/1.5 var(--sans); color: var(--muted);
+}
+.f-msg.bad { color: color-mix(in oklab, #e0705a 78%, var(--text)); }
+.f-msg.good { color: color-mix(in oklab, var(--amb-b) 55%, var(--text)); }
+
 .sheet-go { width: 100%; justify-content: center; height: 52px; font-size: 15px; margin-top: 4px; }
 .sheet-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .sheet-actions .btn { height: 44px; }
@@ -1394,10 +1406,27 @@ footer a:hover { color: var(--saffron); }
     </button>
     <h2 id="submit-title">अपनी साइट जोड़िए</h2>
     <p class="sheet-lede">इस तरह की कोई साइट बनाई है, या कोई छूट गई है? एक लिंक काफ़ी है।</p>
-    <a class="btn primary sheet-go" id="s-form" href="#" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
-      <span class="bi"><b lang="hi">फ़ॉर्म भरिए</b><b lang="en">Fill the form</b></span>
-    </a>
+    <form id="s-form" novalidate>
+      <label class="field"><span id="f-url-l">साइट का लिंक</span>
+        <input id="f-url" name="url" type="url" inputmode="url" autocomplete="url" required spellcheck="false" />
+      </label>
+      <div class="field-row">
+        <label class="field"><span id="f-name-l">साइट का नाम</span>
+          <input id="f-name" name="title" type="text" maxlength="80" />
+        </label>
+        <label class="field"><span id="f-handle-l">आपका X हैंडल</span>
+          <input id="f-handle" name="handle" type="text" maxlength="16" spellcheck="false" />
+        </label>
+      </div>
+      <label class="field"><span id="f-note-l">एक लाइन में</span>
+        <input id="f-note" name="note" type="text" maxlength="140" />
+      </label>
+      <button class="btn primary sheet-go" id="f-send" type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg>
+        <span class="bi"><b lang="hi">भेज दीजिए</b><b lang="en">Send it</b></span>
+      </button>
+      <p class="f-msg" id="f-msg" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </div>
 
@@ -1507,12 +1536,17 @@ const STR = {
     hrsAgo: n => n + ' घंटे पहले की गिनती', daysAgo: n => n + ' दिन पहले की गिनती',
 
     keys: ['<kbd>/</kbd> खोज', '<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> चलिए', '<kbd>↵</kbd> खोलिए', '<kbd>T</kbd> टपरी मोड', '<kbd>R</kbd> कुछ भी', '<kbd>M</kbd> चुप'],
+    fUrl: 'साइट का लिंक', fName: 'साइट का नाम — छोड़ भी सकते हैं',
+    fHandle: 'आपका X हैंडल', fNote: 'एक लाइन में — क्या सुनाई देता है',
+    fSending: 'भेज रहे हैं…',
+    fDone: 'मिल गई — देखकर जोड़ देंगे। शुक्रिया।',
+    fDupe: 'ये पहले से हमारे पास है — फिर भी शुक्रिया।',
+    fBadUrl: 'लिंक पूरा चाहिए, https:// के साथ।',
+    fBadHandle: 'हैंडल में सिर्फ़ अक्षर, अंक और _ चलते हैं।',
+    fRate: 'एक घंटे में पाँच काफ़ी हैं — थोड़ी देर बाद आइए।',
+    fFail: 'भेजा नहीं जा सका। दोबारा कोशिश कीजिए।',
     sheetTitle: 'अपनी साइट जोड़िए',
     sheetLede: 'इस तरह की कोई साइट बनाई है, या कोई छूट गई है? एक लिंक काफ़ी है।',
-    fUrl: 'साइट का पता', fWho: 'नाम या एक्स हैंडल', fWhat: 'एक लाइन में क्या है इसमें',
-    post: 'एक्स पर पोस्ट कीजिए', copy: 'कॉपी कीजिए',
-    sheetNote: 'यहाँ कोई सर्वर नहीं है — फ़ॉर्म सिर्फ़ पोस्ट का मसौदा बनाता है, आपकी बात आप ही भेजते हैं।',
-    draft: 'देसी नॉस्टैल्जिया आर्काइव में यह साइट जोड़िए —', draftBy: 'बनाया — ',
     tvBrand: 'टपरी मोड', tvPause: 'रोकिए', tvPlay: 'चलाइए', tvOpen: 'यह साइट खोलिए ↗', tvExit: 'बाहर',
     tvChannel: 'चैनल', tvOf: n => 'कुल ' + n, tvHere: n => n + ' लोग अभी वहीं हैं',
     tvHint: '<kbd>←</kbd> <kbd>→</kbd> चैनल बदलिए · <kbd>space</kbd> रोकिए · <kbd>enter</kbd> खोलिए · <kbd>esc</kbd> बाहर',
@@ -1553,12 +1587,17 @@ const STR = {
     hrsAgo: n => 'counted ' + n + ' hr ago', daysAgo: n => 'counted ' + n + ' days ago',
     footer: 'Collected from <a href="https://x.com/suraj_sharma14/status/2087990257325412654" target="_blank" rel="noopener noreferrer">@suraj_sharma14’s thread</a> and its replies · every site belongs to whoever built it.',
     keys: ['<kbd>/</kbd> search', '<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> move', '<kbd>↵</kbd> open', '<kbd>T</kbd> tapri mode', '<kbd>R</kbd> random', '<kbd>M</kbd> mute'],
+    fUrl: 'Link to the site', fName: 'Name of the site — optional',
+    fHandle: 'Your X handle', fNote: 'One line — what it sounds like',
+    fSending: 'Sending…',
+    fDone: "Got it — we'll look and add it. Thank you.",
+    fDupe: 'We already have this one — thank you anyway.',
+    fBadUrl: 'Needs the full link, with https://',
+    fBadHandle: 'Handles can only have letters, numbers and _',
+    fRate: "Five in an hour is plenty — come back in a bit.",
+    fFail: 'Could not send that. Try once more.',
     sheetTitle: 'Add your site',
     sheetLede: 'Built one of these, or know one we missed? One link is enough.',
-    fUrl: 'Site address', fWho: 'Name or X handle', fWhat: 'One line about it',
-    post: 'Post on X', copy: 'Copy',
-    sheetNote: 'There is no server here — the form only drafts the post. You send it yourself.',
-    draft: 'Add this one to the Desi Nostalgia Archive —', draftBy: 'Built by ',
     tvBrand: 'Tapri mode', tvPause: 'Pause', tvPlay: 'Play', tvOpen: 'Open this site ↗', tvExit: 'Exit',
     tvChannel: 'Channel', tvOf: n => 'of ' + n, tvHere: n => n + ' people are in there right now',
     tvHint: '<kbd>←</kbd> <kbd>→</kbd> change channel · <kbd>space</kbd> pause · <kbd>enter</kbd> open · <kbd>esc</kbd> exit',
@@ -1667,6 +1706,11 @@ const SITES = [
   { t:'गली की धुन', u:'https://gully-cricket-radio.vercel.app', d:'गली क्रिकेट और गर्मी की छुट्टियाँ — हर छक्का पड़ोसी की दीवार पार।', c:'retro', g:'🏏', h:96, p:'p-check', k:'gully ki dhun cricket radio street summer holidays rec 2001', maker:'', handle:'', te:'Gully Ki Dhun', de:'Street-cricket and Indian-summer radio, for every six over the neighbour’s wall.' },
   { t:'टपरी एफ़एम', u:'https://taprifm.xyz', d:'रेट्रो रेडियो डायल घुमाइए — चाय, धुन, अड्डा।', c:'chai', g:'📻', h:20, p:'p-dots', k:'tapri fm retro radio dial chai dhun adda', maker:'Parth Kapoor', handle:'parth__kapoor', mv:1, te:'Tapri FM', de:'A retro radio dial you drag across chai-time classics — CHAI · DHUN · ADDA.' },
   { t:'டவுன் பஸ் ஹிட்ஸ்', u:'https://townbus.vercel.app', d:'தமிழ் டவுன் பஸ் — ₹5 टिकट, एक स्पीकर, और सफ़र छोटा करने वाले गाने।', c:'bus', g:'🚌', h:36, p:'p-stripe', k:'town bus hits tamil iamanish ₹5 ticket one speaker', maker:'Anish', handle:'iamAnish', mv:1, te:'Town Bus Hits', de:'A Tamil town bus — ₹5 ticket, one speaker, songs that made the journey shorter.' },
+  { t:'शादी डीजे', u:'https://shaadidj.wtf', d:'एक अंकल नाचना शुरू करते हैं और पूरा फ़्लोर कोरियोग्राफ़ी जानता है।', c:'tyohar', g:'💃', h:330, p:'p-rays', k:'shaadi dj indian wedding baraat sangeet bangers divv saxena', maker:'Divv Saxena', handle:'divvsaxena', mv:1, te:'Shaadi DJ', de:'One uncle starts dancing, the kids take over, and suddenly everyone knows the choreography.' },
+  { t:'हनुमान लाइव', u:'https://hanuman.live', d:'सुबह का अपना राग, दोपहर का अपना, रात का अपना — वही चालीसा।', c:'tyohar', g:'🕉️', h:28, p:'p-rays', k:'hanuman chalisa live raga morning afternoon night cyberzeel', maker:'CyberZeel', handle:'thecyberzeel', mv:1, te:'Hanuman Live', de:'Morning has its own raga, afternoon its own, night its own — the same Chalisa, a different sound.' },
+  { t:'बाउल गान', u:'https://baulgan.vibemusic.space', d:'गाँव की सड़क पर बाउल गायक, दूर कहीं एकतारा — प्लेलिस्ट से पहले वाला बांग्ला।', c:'radio', g:'🪕', h:44, p:'p-dots', k:'baul gan bengali folk ektara village anik das vibemusic', maker:'Anik Das', handle:'Dev_anik2003', mv:1, te:'Baul Gaan', de:'A Baul singer on a village road and an ektara in the distance — Bengali folk from before the playlists.' },
+  { t:'रक्षाबंधन', u:'https://rakshabandhan.me', d:'रील्स से पहले — दूरदर्शन पर "फूलों का तारों का" और दीदी राखी बाँधती हुई।', c:'tyohar', g:'🪢', h:340, p:'p-dots', k:'rakshabandhan rakhi doordarshan phoolon ka taaron ka didi nishan', maker:'Nishan', handle:'thenishandas', mv:1, te:'Raksha Bandhan', de:'Before reels — Doordarshan playing "Phoolon ka taaron ka" while didi tied the rakhi.' },
+  { t:'टुक टुक', u:'https://tuktuk-iota.vercel.app', d:'टुक टुक में बैठे-बैठे हिमेश — अपनी प्लेलिस्ट डालिए और किसी ख़ास को भेजिए।', c:'bus', g:'🛺', h:8, p:'p-stripe', k:'tuk tuk himesh reshammiya youtube playlist ankit sharma auto rickshaw', maker:'Ankit Sharma', handle:'ankitsharmatv', mv:1, te:'Tuk Tuk', de:'Himesh from the back of a tuk tuk — drop in your own playlist and send it to someone.' },
 ];
 
 /* ============================================================
@@ -1829,13 +1873,6 @@ const catLabel = id => { const c = CATS.find(x => x.id === id) || {}; return (LA
 const pretty = u => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 /* every site carries the two colours pulled out of its own screenshot */
-/* submissions: set these once and the sheet wires itself up.
-   REPO opens a pre-filled GitHub issue (best for the devs who built these);
-   FORM is the no-account fallback for everyone else. */
-const SUBMIT_TO = {
-  repo: 'RushOnhere/desi-nostalgia-hub',
-  form: 'https://docs.google.com/forms/d/e/1FAIpQLSeTMr7q3-hSFLlJ6ewDl6mKek4XsVoT2sdOjTJtm7N2qrTBaQ/viewform',
-};
 
 const REST = { a: '#b3652d', b: '#3e69a3' };
 const paletteOf = site => (window.PALETTE || {})[pretty(site.u)] || REST;
@@ -2513,7 +2550,6 @@ const Submit = (() => {
   return {
     get open() { return el.classList.contains('on'); },
     show() {
-      document.getElementById('s-form').href = SUBMIT_TO.form || '#';
       el.classList.add('on');
       el.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -2558,8 +2594,61 @@ function setView(v) {
 });
 document.getElementById('submitbtn').addEventListener('pointerenter', () => Sfx.hover());
 document.getElementById('submit-close').addEventListener('click', () => Submit.hide());
-document.getElementById('s-form').addEventListener('pointerenter', () => Sfx.hover());
-document.getElementById('s-form').addEventListener('pointerdown', () => Sfx.launch());
+document.getElementById('f-send').addEventListener('pointerenter', () => Sfx.hover());
+
+/* --- sending a site, straight to the database --- */
+(() => {
+  const form = document.getElementById('s-form');
+  const msg = document.getElementById('f-msg');
+  const send = document.getElementById('f-send');
+  if (!form) return;
+
+  // one opaque id per browser, so the rate limit has something to count
+  let who = localStorage.getItem('dna-sub');
+  if (!who) { who = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('dna-sub', who); }
+
+  const say = (text, kind) => { msg.textContent = text; msg.className = 'f-msg' + (kind ? ' ' + kind : ''); };
+  const val = id => document.getElementById(id).value.trim();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const cfg = window.PRESENCE;
+    let url = val('f-url');
+    const low = url.toLowerCase();
+    // people paste bare domains, so give them the scheme they meant
+    if (url && !low.startsWith('http://') && !low.startsWith('https://')) url = 'https://' + url;
+    let host = '';
+    try { const u = new URL(url); if (u.protocol === 'http:' || u.protocol === 'https:') host = u.hostname; } catch (err) { host = ''; }
+    if (!host || host.indexOf('.') < 1 || host.endsWith('.')) return say(T().fBadUrl, 'bad');
+    if (!cfg || !cfg.url) return say(T().fFail, 'bad');
+
+    send.disabled = true;
+    say(T().fSending);
+    Sfx.launch();
+    try {
+      const r = await fetch(cfg.url + '/rest/v1/rpc/submit_site', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: cfg.key, Authorization: 'Bearer ' + cfg.key },
+        body: JSON.stringify({
+          p_url: url, p_title: val('f-name') || null, p_maker: null,
+          p_handle: val('f-handle') || null, p_note: val('f-note') || null, p_submitter: who
+        })
+      });
+      const out = await r.json();
+      if (out && out.ok) {
+        say(out.dupe ? T().fDupe : T().fDone, 'good');
+        form.reset();
+      } else {
+        const t = T();
+        say({ url: t.fBadUrl, handle: t.fBadHandle, rate: t.fRate }[out && out.error] || t.fFail, 'bad');
+      }
+    } catch (err) {
+      say(T().fFail, 'bad');
+    }
+    send.disabled = false;
+  });
+})();
+
 document.getElementById('submit').addEventListener('click', e => { if (e.target.id === 'submit') Submit.hide(); });
 
 
@@ -2775,7 +2864,8 @@ function paintStatic() {
   const t = T();
   document.documentElement.lang = LANG;
   document.getElementById('q').placeholder = t.searchPh;
-  document.getElementById('unlock').querySelector('span').textContent = t.unlock;
+  const unlockPill = document.getElementById('unlock');   // removes itself once sound is on
+  if (unlockPill) unlockPill.querySelector('span').textContent = t.unlock;
   langBtn.querySelector('.on').textContent = LANG === 'hi' ? 'हिं' : 'EN';
   langBtn.querySelector('.off').textContent = LANG === 'hi' ? 'EN' : 'हिं';
   langBtn.setAttribute('aria-label', LANG === 'hi' ? 'Switch to English' : 'हिंदी में पढ़िए');
@@ -2789,6 +2879,10 @@ function paintStatic() {
 
   document.getElementById('submit-title').textContent = t.sheetTitle;
   document.querySelector('.sheet-lede').textContent = t.sheetLede;
+  document.getElementById('f-url-l').textContent = t.fUrl;
+  document.getElementById('f-name-l').textContent = t.fName;
+  document.getElementById('f-handle-l').textContent = t.fHandle;
+  document.getElementById('f-note-l').textContent = t.fNote;
 
   document.querySelector('.tv-brand').textContent = t.tvBrand;
   document.getElementById('tv-open').textContent = t.tvOpen;

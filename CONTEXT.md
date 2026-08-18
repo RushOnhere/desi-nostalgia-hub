@@ -35,17 +35,23 @@ its maker's credit, and how many people are inside it right now.
 
 | | |
 |---|---|
-| sites | **87** |
-| screenshots | 87, ~3.9 MB total in `shots.js` |
-| embeddable live | 81 of 87 |
-| sites reporting a count | 45 (43 live, 2 cumulative) |
-| counters that never move | 11 — excluded from totals |
-| trusted live total | ~4,137 |
-| maker credited | 39 of 87 (35 confirmed) — **48 still unknown** |
+| sites | **92** |
+| screenshots | 92, ~4.2 MB total in `shots.js` |
+| embeddable live | 87 of 92 |
+| sites reporting a count | 46 (44 live, 2 cumulative) |
+| counters that never move | 12 — excluded from totals |
+| trusted live total | ~4,078 |
+| maker credited | 44 of 92 (40 confirmed) — **48 still unknown** |
 
-Newest entry: `townbus.vercel.app` (Tamil town bus, @iamAnish) — a *third*
-distinct town-bus site, separate from `townbus.site` and `town-bus.vercel.app`.
-Do not merge them.
+Newest entries (18 Aug): `shaadidj.wtf` (@divvsaxena), `hanuman.live`
+(@thecyberzeel), `baulgan.vibemusic.space` (@Dev_anik2003), `rakshabandhan.me`
+(@thenishandas), `tuktuk-iota.vercel.app` (@ankitsharmatv, posted behind the
+shortlink gotolink.cc/tuktuk — the archive stores the resolved destination),
+and `townbus.vercel.app` (@iamAnish), which is a *third* town-bus site,
+separate from `townbus.site` and `town-bus.vercel.app`. Do not merge them.
+
+Not added: @BuildwithOmkarr's Ganpati site — his launch post is a video with
+no link in it, so there is nothing to point a card at yet.
 
 ## 3. Files that ship
 
@@ -104,7 +110,7 @@ labelled "अब तक / so far", but never enter the chowk, the totals, or the
 
 **Frozen counters are detected, not hand-listed.** `crowd-history.json` keeps
 the last 12 readings; anything unchanged across 3+ readings is `moved:false`,
-shown with a grey dot and left out of every total. Currently 11 sites.
+shown with a grey dot and left out of every total. Currently 12 sites.
 
 **Performance rules learned the hard way:**
 - `loading="lazy"` does **nothing** for a data URI — no network fetch to defer.
