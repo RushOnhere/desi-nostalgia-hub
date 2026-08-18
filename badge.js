@@ -15,7 +15,7 @@
   var CFG = {
     url: 'https://iomcpnyfnuvujgzamtbp.supabase.co',
     key: 'sb_publishable_ahLqxPOO8qFkYgQIJAQW6g_5CbDAdb5',
-    home: 'https://thechowk.vercel.app',
+    home: 'https://thechowk.online',
     beatMs: 20000,
   };
 
@@ -45,7 +45,7 @@
     chip.href = CFG.home;
     chip.target = '_blank';
     chip.rel = 'noopener noreferrer';
-    chip.setAttribute('aria-label', 'live listeners — Desi Nostalgia Archive');
+    chip.setAttribute('aria-label', 'live listeners — The Chowk');
     chip.style.cssText = [
       'position:fixed', 'right:16px', 'bottom:16px', 'z-index:2147483000',
       'display:inline-flex', 'align-items:center', 'gap:8px',

@@ -1,7 +1,7 @@
 /* Fetches the deployed site the way X's unfurler would: reads the meta off the
    live HTML, then actually downloads the og:image it points at. A tag that is
    correct in the repo proves nothing until the host serves it. */
-const HOME = 'https://thechowk.vercel.app';
+const HOME = 'https://thechowk.online';
 
 const get = (u, opts = {}) => fetch(u, { redirect: 'follow', signal: AbortSignal.timeout(25000), ...opts });
 

@@ -37,7 +37,7 @@ h1{font-size:88px;line-height:.98;letter-spacing:-.02em;margin-bottom:16px}
 <div class="veil"></div>
 <div class="wrap">
   <div class="eyebrow"><span class="dot"></span> ${Object.values(crowd.sites).filter(Boolean).length} साइटें अपनी गिनती दिखाती हैं</div>
-  <h1>देसी नॉस्टैल्जिया आर्काइव</h1>
+  <h1>द चौक</h1>
   <div class="sub">चाय टपरी, ट्रक रेडियो, रोडवेज़ बस, नब्बे के कार्टून — सब एक स्क्रीन पर।</div>
   <div class="stats"><div class="big">${total.toLocaleString('en-IN')}</div><div class="cap">लोग अभी इन गलियों में</div></div>
 </div></body></html>`;

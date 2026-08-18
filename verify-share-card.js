@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('E:/Claude Stuff/motion-kit/node_modules/playwright');
 
-const HOME = 'https://thechowk.vercel.app';
+const HOME = 'https://thechowk.online';
 
 (async () => {
   const browser = await chromium.launch();

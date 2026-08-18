@@ -10,7 +10,7 @@ const path = require('path');
   page.on('pageerror', e => errs.push(e.message));
   page.on('console', m => { if (m.type() === 'error') errs.push(m.text().slice(0, 120)); });
 
-  await page.goto('https://thechowk.vercel.app/', { waitUntil: 'load', timeout: 90000 });
+  await page.goto('https://thechowk.online/', { waitUntil: 'load', timeout: 90000 });
   await page.waitForTimeout(5000);
 
   const state = await page.evaluate(() => ({

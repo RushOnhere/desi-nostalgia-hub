@@ -8,10 +8,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const HOME = 'https://thechowk.vercel.app';
+const HOME = 'https://thechowk.online';
 
-// any host we have ever used, so a rename catches every leftover
-const OLD_HOST = /https:\/\/(?:chowk|nostalgiahub|desi-nostalgia-hub|apnachowk|thechowk)\.vercel\.app/g;
+// every host we have ever used, so a rename catches every leftover. Built from
+// a string with character classes so there is not a single backslash to be
+// mangled on its way through a shell.
+const OLD_HOST = new RegExp('https://(?:chowk|nostalgiahub|desi-nostalgia-hub|apnachowk|thechowk)[.](?:vercel[.]app|online)', 'g');
 
 const p = f => path.join(__dirname, f);
 const log = [];

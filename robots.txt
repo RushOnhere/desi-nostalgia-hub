@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thechowk.vercel.app/sitemap.xml
+Sitemap: https://thechowk.online/sitemap.xml
