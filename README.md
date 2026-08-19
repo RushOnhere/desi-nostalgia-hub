@@ -49,11 +49,34 @@ odometer only ever climbs, so ranking it against concurrent listeners is
 meaningless — cumulative counts still show on their card, labelled "अब तक /
 so far", but never enter the chowk, the totals or the crowd sort.
 
-Each reading is appended to `crowd-history.json`. Any counter that has not
-changed across three or more readings is marked `moved: false` — it still shows
-on its card, but with a grey dot instead of a live one, and it is left out of
-the headline total, the chowk ranking and the row totals. Sites whose counter never moves are excluded from the headline
-total, the chowk ranking and the row totals.
+Each reading is appended to two places.
+
+`crowd-history.json` is a **rolling window of the last 24 readings per site**.
+It exists for one job: spotting a counter that never moves. Anything unchanged
+across three or more readings is marked `moved: false`, still shown on its card
+but with a grey dot, and left out of the headline total, the chowk ranking and
+the row totals.
+
+`history/YYYY-MM.ndjson` is the **permanent record**: one JSON line per site per
+reading, appended, never rewritten and never truncated, in a file per month.
+
+```
+{"t":"2026-08-19T03:42:38.649Z","d":"hanuman.live","n":27,"k":"live","m":true}
+```
+
+`n` is the count, `k` is live or cumulative, `m` is whether that counter has
+ever moved. Read it back with:
+
+```bash
+node history-stats.js
+```
+
+Add a domain for one site reading by reading, or `--all` for every site.
+
+This is the only time series anyone has for this trend, and it costs about
+340 KB a day to keep. Monthly files mean nothing is ever rewritten, so the git
+history stays cheap. If it ever gets heavy, move it into the Supabase project
+rather than deleting it.
 
 The counts are read off each site by a headless browser, because a browser
 cannot fetch them cross-origin. Re-read them any time:

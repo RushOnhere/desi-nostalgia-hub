@@ -42,7 +42,7 @@ jobs:
           git config user.email "actions@github.com"
           # the history file is what lets a frozen counter be spotted — it has to
           # be committed too, or every run starts from nothing
-          git add crowd.js crowd-history.json
+          git add crowd.js crowd-history.json history/
           if git diff --staged --quiet; then
             echo "no change in the numbers"
             exit 0

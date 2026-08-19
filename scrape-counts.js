@@ -5,6 +5,7 @@
    A browser cannot read these numbers cross-origin, so this runs here and the
    page shows the reading together with the time it was taken. Re-run to refresh. */
 const { chromium } = require(process.env.PLAYWRIGHT_PATH || 'E:/Claude Stuff/motion-kit/node_modules/playwright');
+const LF = String.fromCharCode(10);   // written through a shell too often to trust an escape
 const fs = require('fs'), path = require('path');
 
 const SITES = Object.keys(JSON.parse(fs.readFileSync(path.join(__dirname, 'shots.json'), 'utf8')))
@@ -87,7 +88,7 @@ const SITES = Object.keys(JSON.parse(fs.readFileSync(path.join(__dirname, 'shots
   // keep a rolling history so a counter that never moves can be spotted and
   // marked, instead of quietly inflating the leaderboard
   const HIST = path.join(__dirname, 'crowd-history.json');
-  const KEEP = 12;
+  const KEEP = 24;
   const hist = fs.existsSync(HIST) ? JSON.parse(fs.readFileSync(HIST, 'utf8')) : {};
   const now = new Date().toISOString();
   for (const [k, v] of Object.entries(sites)) {
@@ -111,6 +112,20 @@ const SITES = Object.keys(JSON.parse(fs.readFileSync(path.join(__dirname, 'shots
     v.moved = rd.length < 3 ? null : new Set(rd.map(x => x.n)).size > 1;
     if (v.moved === false) frozen++;
   }
+
+  /* the permanent record. the window above forgets; this does not. one line
+     per site per reading, appended, in a file per month. Written after the
+     classifier and the frozen check so each row carries what kind of number it
+     was and whether that counter had moved, which is the part that makes the
+     log worth keeping. */
+  const logDir = path.join(__dirname, 'history');
+  fs.mkdirSync(logDir, { recursive: true });
+  const logFile = path.join(logDir, now.slice(0, 7) + '.ndjson');
+  const logRows = Object.entries(sites)
+    .filter(([, v]) => v)
+    .map(([k, v]) => JSON.stringify({ t: now, d: k, n: v.n, k: v.kind || null, m: v.moved }));
+  if (logRows.length) fs.appendFileSync(logFile, logRows.join(LF) + LF);
+  console.log('logged ' + logRows.length + ' readings to history/' + now.slice(0, 7) + '.ndjson');
 
   // only concurrent counters that have been seen to move feed the headline
   const trustedTotal = Object.values(sites)
