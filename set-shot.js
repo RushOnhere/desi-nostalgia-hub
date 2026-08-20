@@ -20,7 +20,11 @@ const known = fs.readFileSync(p('index.html'), 'utf8')
   .split(/\r?\n/).filter(l => /\{ t:'.*u:'https:/.test(l))
   .map(l => (l.match(/u:'([^']+)'/) || [, ''])[1].replace(/^https?:\/\//, '').replace(/\/$/, ''));
 
-const [arg1, arg2] = process.argv.slice(2);
+const arg1 = process.argv[2];
+/* join the rest rather than taking one argument: every path on this machine
+   contains a space (E:Claude Stuff...), and an unquoted one arrives split
+   across several argv entries. Quoted paths still work — they arrive as one. */
+const arg2 = process.argv.slice(3).join(" ");
 
 if (!arg1 || arg1 === '--list') {
   console.log('domains in the archive (' + known.length + '), * = has a preview:\n');
@@ -38,7 +42,7 @@ if (!known.includes(domain)) {
   console.log('run  node set-shot.js --list  to see them all');
   process.exit(1);
 }
-if (!arg2) { console.log('give me an image file, or --auto to re-shoot from the live site'); process.exit(1); }
+if (!arg2 || !arg2.trim()) { console.log('give me an image file, or --auto to re-shoot from the live site'); process.exit(1); }
 
 (async () => {
   const browser = await chromium.launch();

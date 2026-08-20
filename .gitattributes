@@ -1,0 +1,27 @@
+# In .gitattributes the LAST matching rule wins, so the general defaults go
+# first and the exceptions go under them.
+
+* text=auto eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.html text eol=lf
+*.yml  text eol=lf
+
+# The generated data files are one enormous line of JSON each. Git was treating
+# them as text: converting line endings and diffing them on every add, which
+# took 33s for shots.json and hung outright on the 5 MB shots.js. Store them
+# byte for byte and never try to diff them.
+shots.js           -text -diff
+shots.json         -text -diff
+palette.js         -text -diff
+crowd.js           -text -diff
+crowd-history.json -text -diff
+frameable.js       -text -diff
+logo.js            -text -diff
+artifact.html      -text -diff
+
+# images and fonts
+*.png binary
+*.jpg binary
+*.woff2 binary
