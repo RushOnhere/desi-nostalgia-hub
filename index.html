@@ -59,8 +59,8 @@
   --ivory:      #e9dfcc;
 
   /* graph paper: a fine rule every 34px, a heavier one every 5th */
-  --grid-fine:  rgba(188, 205, 240, .055);
-  --grid-bold:  rgba(188, 205, 240, .085);
+  --grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45'%3E%3Cpath d='M.5 45V.5H45' fill='none' stroke='%23bccdf0' stroke-opacity='.20' stroke-dasharray='4 2'/%3E%3C/svg%3E");
+  --grid-ink: rgba(188, 205, 240, .16);
 
   /* the live accent — JS swaps these to the palette of whatever you are pointing at */
   --amb-a:      #b3652d;
@@ -94,8 +94,7 @@
   --ink-2:      #efe8dc;
   --surface:    #fffdf9;
   --surface-2:  #fffefb;
-  --grid-fine:  rgba(46, 34, 22, .055);
-  --grid-bold:  rgba(46, 34, 22, .10);
+  --grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45'%3E%3Cpath d='M.5 45V.5H45' fill='none' stroke='%232e2216' stroke-opacity='.26' stroke-dasharray='4 2'/%3E%3C/svg%3E");
   --line:       rgba(46, 34, 22, .13);
   --line-2:     rgba(46, 34, 22, .24);
   --text:       #16110c;
@@ -116,8 +115,7 @@
     --ink-2:      #efe8dc;
     --surface:    #fffdf9;
     --surface-2:  #fffefb;
-    --grid-fine:  rgba(46, 34, 22, .055);
-    --grid-bold:  rgba(46, 34, 22, .10);
+    --grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45'%3E%3Cpath d='M.5 45V.5H45' fill='none' stroke='%232e2216' stroke-opacity='.26' stroke-dasharray='4 2'/%3E%3C/svg%3E");
     --line:       rgba(46, 34, 22, .13);
     --line-2:     rgba(46, 34, 22, .24);
     --text:       #16110c;
@@ -814,18 +812,20 @@ main { position: relative; z-index: 1; }
 
 /* ---------- footer ---------- */
 /* ---- graph paper ---------------------------------------------------- */
+/* Graph paper, matching the reference exactly: a 45px cell drawn as an SVG
+   pattern with the same dashed stroke (4 on, 2 off) rather than solid rules,
+   and a radial mask so the grid is only really present where the eye lands and
+   dissolves everywhere else. Solid lines at this density read as a spreadsheet;
+   the dashes are what make it read as paper.
+   Two data URIs because a data URI cannot see a CSS variable, so the stroke
+   colour is baked per theme. */
 .gridbg {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image:
-    linear-gradient(to right, var(--grid-fine) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-fine) 1px, transparent 1px),
-    linear-gradient(to right, var(--grid-bold) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-bold) 1px, transparent 1px);
-  background-size: 34px 34px, 34px 34px, 170px 170px, 170px 170px;
-  /* strongest at the top where the page has air, quiet through the tiles,
-     and back up under the footer wordmark */
-  -webkit-mask-image: linear-gradient(to bottom, #000 0, rgba(0,0,0,.42) 34vh, rgba(0,0,0,.22) 70vh, rgba(0,0,0,.22) 100%);
-  mask-image: linear-gradient(to bottom, #000 0, rgba(0,0,0,.42) 34vh, rgba(0,0,0,.22) 70vh, rgba(0,0,0,.22) 100%);
+  background-image: var(--grid-svg);
+  background-size: 45px 45px;
+  background-position: -1px -1px;
+  -webkit-mask-image: radial-gradient(900px circle at 50% 0%, #000 0%, rgba(0,0,0,.55) 45%, transparent 78%);
+  mask-image: radial-gradient(900px circle at 50% 0%, #000 0%, rgba(0,0,0,.55) 45%, transparent 78%);
 }
 @media (prefers-reduced-motion: no-preference) {
   .gridbg { animation: gridIn 1.1s var(--ease) both; }
