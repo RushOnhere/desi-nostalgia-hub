@@ -11,8 +11,15 @@ const path = require('path');
 
   const r = await p.evaluate(() => {
     const vw = innerWidth, vh = innerHeight;
-    const inView = n => { const b = n.getBoundingClientRect();
-      return b.width > 0 && b.height > 0 && b.top < vh && b.bottom > 0 && b.left < vw && b.right > 0; };
+    // visibility:hidden and opacity:0 elements still report a box, so ask the
+    // browser whether they are really painted — otherwise a closed panel counts
+    // as clutter that nobody can see
+    const inView = n => {
+      const b = n.getBoundingClientRect();
+      if (!(b.width > 0 && b.height > 0 && b.top < vh && b.bottom > 0 && b.left < vw && b.right > 0)) return false;
+      if (n.checkVisibility) return n.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+      return true;
+    };
 
     const bar = document.querySelector('.bar-main');
     const barControls = bar ? [...bar.querySelectorAll('button, a, input, select')].filter(inView).length : 0;

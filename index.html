@@ -260,6 +260,69 @@ html[lang="hi"] .bi > b[lang="en"], html[lang="en"] .bi > b[lang="hi"] { visibil
 .bar-main .search { flex: 1 1 200px; min-width: 0; margin-left: auto; }
 .bar-main .search input { width: 100%; min-width: 0; }
 .bar-main .viewtog { flex: none; }
+/* ---- the dial ------------------------------------------------------------
+   Five settings used to sit in the bar permanently: view, shuffle, theme,
+   live preview, sound. Nobody changes the theme twice, so they cost attention
+   on every visit and bought nothing. They live behind one dial now.
+   The dial is a tuning knob, which is the right object for a page full of
+   radios: it turns a little under the cursor and a lot when it opens. */
+.knob-wrap { position: relative; flex: none; }
+.knob .dial, .knob .ticks { transform-origin: 12px 12px; }
+.knob .dial { transition: transform .5s cubic-bezier(.34, 1.4, .55, 1); }
+.knob .ticks { transition: opacity .3s var(--ease); }
+.knob:hover .dial { transform: rotate(-32deg); }
+.knob:hover .ticks { opacity: 1; }
+.knob[aria-expanded="true"] .dial { transform: rotate(148deg); }
+.knob[aria-expanded="true"] {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--amb-a) 55%, var(--line-2));
+  background: color-mix(in srgb, var(--amb-a) 14%, transparent);
+}
+
+.knob-panel {
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 40;
+  min-width: 268px; padding: 9px; border-radius: 18px;
+  display: grid; gap: 2px;
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  backdrop-filter: blur(26px) saturate(180%); -webkit-backdrop-filter: blur(26px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 1px 0 rgba(255,255,255,.16) inset, 0 30px 70px -34px rgba(0,0,0,.95);
+  transform-origin: top right;
+  opacity: 0; transform: translateY(-8px) scale(.94);
+  visibility: hidden; pointer-events: none;
+  transition: opacity .22s var(--ease), transform .34s cubic-bezier(.34, 1.4, .55, 1), visibility .34s;
+}
+:root[data-mode="light"] .knob-panel {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border-color: rgba(46,34,22,.14);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 30px 70px -38px rgba(60,40,18,.5);
+}
+.knob-panel.on { opacity: 1; transform: none; visibility: visible; pointer-events: auto; }
+
+.kp-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 7px 9px 7px 11px; border-radius: 12px;
+  opacity: 0; transform: translateY(-5px);
+}
+.knob-panel.on .kp-row {
+  animation: kpRow .38s cubic-bezier(.34, 1.4, .55, 1) forwards;
+  animation-delay: calc(var(--i) * 38ms + 40ms);
+}
+@keyframes kpRow { to { opacity: 1; transform: none; } }
+.kp-row:hover { background: rgba(255,255,255,.045); }
+:root[data-mode="light"] .kp-row:hover { background: rgba(46,34,22,.05); }
+.kp-l { font: 400 13px/1 var(--sans); color: var(--muted); white-space: nowrap; }
+.kp-c { display: inline-flex; align-items: center; gap: 6px; flex: none; }
+/* the moved controls keep their own look, minus the labels the rows now carry */
+.kp-c .lbl { display: none; }
+.kp-c .viewtog { flex: none; }
+.kp-c .vbtn { padding: 8px 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .knob .dial, .knob-panel, .knob-panel.on .kp-row { transition: none; animation: none; }
+  .knob-panel.on .kp-row { opacity: 1; transform: none; }
+}
+
 .act-sep { width: 1px; height: 24px; background: var(--line-2); margin: 0 3px; flex: none; }
 @media (max-width: 1860px) { .viewtog .lbl { display: none; } .vbtn { padding: 9px 11px; } }
 @media (max-width: 1660px) { #shuffle .lbl, #submitbtn .lbl { display: none; } }
@@ -1421,6 +1484,27 @@ footer a:hover { color: var(--saffron); }
       <input id="q" type="search" placeholder="चाय, ट्रक, बस, गली…" autocomplete="off" spellcheck="false" />
       <kbd>/</kbd>
     </label>
+    <div class="top-actions">
+      <button class="btn" id="submitbtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 11V6.5A2.5 2.5 0 0 1 8.5 4h7A2.5 2.5 0 0 1 18 6.5V11"/><path d="M4.5 11h15a1.5 1.5 0 0 1 1.5 1.5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4.5A1.5 1.5 0 0 1 4.5 11z"/><path d="M6 18v2M18 18v2"/></svg>
+        <span class="lbl bi"><b lang="hi">अपनी साइट जोड़िए</b><b lang="en">Add your site</b></span>
+      </button>
+      <button class="btn primary" id="tvbtn" type="button" title="पूरी स्क्रीन पर चैनल घुमाइए (T)">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+        <span class="lbl bi"><b lang="hi">टपरी मोड</b><b lang="en">Tapri mode</b></span>
+      </button>
+      <button class="btn lang" id="lang" type="button" aria-label="Switch to English">
+        <span class="on">हिं</span><span class="sep">/</span><span class="off">EN</span>
+      </button>
+      <div class="knob-wrap">
+        <button class="btn icon knob" id="knob" type="button" aria-expanded="false" aria-controls="knobPanel" aria-label="और सेटिंग">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+            <g class="ticks" opacity=".55"><path d="M12 2.5v1.3M19.6 6.8l-1.1.6M19.6 17.2l-1.1-.6M12 21.5v-1.3M4.4 17.2l1.1-.6M4.4 6.8l1.1.6"/></g>
+            <g class="dial"><circle cx="12" cy="12" r="6.1"/><path d="M12 6.6V9"/></g>
+          </svg>
+        </button>
+        <div class="knob-panel" id="knobPanel" role="group" aria-label="और सेटिंग">
+          <div class="kp-row" style="--i:0"><span class="kp-l bi"><b lang="hi">देखने का तरीक़ा</b><b lang="en">View</b></span><span class="kp-c" id="kp-view">
     <div class="viewtog" role="group" aria-label="देखने का तरीक़ा">
       <button class="vbtn" id="v-grid" type="button" data-view="grid" aria-pressed="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></svg>
@@ -1431,37 +1515,35 @@ footer a:hover { color: var(--saffron); }
         <span class="lbl bi"><b lang="hi">सीट चार्ट</b><b lang="en">Seat chart</b></span>
       </button>
     </div>
-    <div class="top-actions">
-      <button class="btn" id="submitbtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 11V6.5A2.5 2.5 0 0 1 8.5 4h7A2.5 2.5 0 0 1 18 6.5V11"/><path d="M4.5 11h15a1.5 1.5 0 0 1 1.5 1.5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4.5A1.5 1.5 0 0 1 4.5 11z"/><path d="M6 18v2M18 18v2"/></svg>
-        <span class="lbl bi"><b lang="hi">अपनी साइट जोड़िए</b><b lang="en">Add your site</b></span>
-      </button>
+          </span></div>
+          <div class="kp-row" style="--i:1"><span class="kp-l bi"><b lang="hi">कुछ भी सुनाओ</b><b lang="en">Surprise me</b></span><span class="kp-c" id="kp-shuffle">
       <button class="btn" id="shuffle" type="button" title="कोई भी एक साइट खोलिए (R)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
         <span class="lbl bi"><b lang="hi">कुछ भी सुनाओ</b><b lang="en">Surprise me</b></span>
       </button>
-      <button class="btn primary" id="tvbtn" type="button" title="पूरी स्क्रीन पर चैनल घुमाइए (T)">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
-        <span class="lbl bi"><b lang="hi">टपरी मोड</b><b lang="en">Tapri mode</b></span>
-      </button>
-      <span class="act-sep" aria-hidden="true"></span>
-      <button class="btn lang" id="lang" type="button" aria-label="Switch to English">
-        <span class="on">हिं</span><span class="sep">/</span><span class="off">EN</span>
-      </button>
+          </span></div>
+          <div class="kp-row" style="--i:2"><span class="kp-l bi"><b lang="hi">दिन या रात</b><b lang="en">Day or night</b></span><span class="kp-c" id="kp-theme">
       <button class="btn icon" id="theme" type="button" aria-label="दिन वाला रूप">
         <span class="morph">
           <svg class="m-a" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.2 8.2 0 0 1 9.5 4 8.4 8.4 0 1 0 20 14.5z"/></svg>
           <svg class="m-b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 12H2M22 12h-2.2M6.3 6.3 4.8 4.8M19.2 19.2l-1.5-1.5M17.7 6.3l1.5-1.5M4.8 19.2l1.5-1.5"/></svg>
         </span>
       </button>
+          </span></div>
+          <div class="kp-row" style="--i:3"><span class="kp-l bi"><b lang="hi">लाइव झलक</b><b lang="en">Live preview</b></span><span class="kp-c" id="kp-live">
       <button class="btn icon" id="livebtn" type="button" aria-pressed="true" aria-label="लाइव झलक" title="हॉवर करने पर असली साइट चलती हुई दिखे">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="13" rx="2.4"/><path d="M8 20.5h8"/><path class="lv-off" d="M4 4l16 16"/></svg>
       </button>
+          </span></div>
+          <div class="kp-row" style="--i:4"><span class="kp-l bi"><b lang="hi">आवाज़</b><b lang="en">Sound</b></span><span class="kp-c" id="kp-sound">
       <button class="btn icon" id="sound" type="button" aria-pressed="true" aria-label="आवाज़ बंद कीजिए">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
           <path d="M11 5 6 9H3v6h3l5 4z"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path class="cross" d="M22 9l-5 6M17 9l5 6"/>
         </svg>
       </button>
+          </span></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2726,6 +2808,37 @@ function setView(v) {
 document.getElementById('submitbtn').addEventListener('pointerenter', () => Sfx.hover());
 document.getElementById('submit-close').addEventListener('click', () => Submit.hide());
 document.getElementById('f-send').addEventListener('pointerenter', () => Sfx.hover());
+
+/* --- the dial: opens the settings that used to crowd the bar --- */
+(() => {
+  const btn = document.getElementById('knob');
+  const panel = document.getElementById('knobPanel');
+  if (!btn || !panel) return;
+
+  const open = () => {
+    panel.classList.add('on');
+    btn.setAttribute('aria-expanded', 'true');
+    Sfx.tick();
+  };
+  const shut = () => {
+    if (!panel.classList.contains('on')) return;
+    panel.classList.remove('on');
+    btn.setAttribute('aria-expanded', 'false');
+  };
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    panel.classList.contains('on') ? shut() : open();
+  });
+  btn.addEventListener('pointerenter', () => Sfx.hover());
+
+  // clicking a control inside should not close the panel — people flip two of
+  // them in a row — but clicking anywhere else should
+  panel.addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', shut);
+  addEventListener('keydown', e => { if (e.key === 'Escape') shut(); });
+  addEventListener('scroll', shut, { passive: true });
+})();
 
 /* --- sending a site, straight to the database --- */
 (() => {
