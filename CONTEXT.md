@@ -35,13 +35,13 @@ its maker's credit, and how many people are inside it right now.
 
 | | |
 |---|---|
-| sites | **92** |
-| screenshots | 92, ~4.2 MB total in `shots.js` |
-| embeddable live | 87 of 92 |
-| sites reporting a count | 46 (44 live, 2 cumulative) |
-| counters that never move | 12 — excluded from totals |
-| trusted live total | ~4,078 |
-| maker credited | 44 of 92 (40 confirmed) — **48 still unknown** |
+| sites | **95** |
+| screenshots | 95, ~4.3 MB total in `shots.js` |
+| embeddable live | 89 of 95 |
+| sites reporting a count | 48 (46 live, 2 cumulative) |
+| counters that never move | 18 — excluded from totals |
+| trusted live total | ~5,011 |
+| maker credited | 46 of 95 (42 confirmed) — **49 still unknown** |
 
 Newest entries (18 Aug): `shaadidj.wtf` (@divvsaxena), `hanuman.live`
 (@thecyberzeel), `baulgan.vibemusic.space` (@Dev_anik2003), `rakshabandhan.me`
@@ -125,7 +125,7 @@ number, with the history's shape as a backstop. Cumulative counts still show,
 labelled "अब तक / so far", but never enter the chowk, the totals, or the sort.
 
 **Frozen counters are detected, not hand-listed.** `crowd-history.json` keeps
-the last 12 readings; anything unchanged across 3+ readings is `moved:false`,
+the last 24 readings; anything unchanged across 3+ readings is `moved:false`,
 shown with a grey dot and left out of every total. Currently 12 sites.
 
 **Performance rules learned the hard way:**

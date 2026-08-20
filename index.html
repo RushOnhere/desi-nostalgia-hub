@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="92 देसी नॉस्टैल्जिया वेबसाइटें — चाय टपरी, ट्रक रेडियो, रोडवेज़ बस, नब्बे के कार्टून — एक ही स्क्रीन पर, असली स्क्रीनशॉट और लाइव भीड़ के साथ।" />
+<meta name="description" content="95 देसी नॉस्टैल्जिया वेबसाइटें — चाय टपरी, ट्रक रेडियो, रोडवेज़ बस, नब्बे के कार्टून — एक ही स्क्रीन पर, असली स्क्रीनशॉट और लाइव भीड़ के साथ।" />
 <meta name="theme-color" content="#06070b" media="(prefers-color-scheme: dark)" />
 <meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)" />
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
@@ -12,13 +12,13 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://thechowk.online/" />
 <meta property="og:title" content="द चौक · The Chowk — देसी नॉस्टैल्जिया वेबसाइटों का चौक" />
-<meta property="og:description" content="92 sites, one screen. Chai tapris, truck radios, roadways buses, 90s cartoons — with real screenshots and how many people are inside each one right now." />
+<meta property="og:description" content="95 sites, one screen. Chai tapris, truck radios, roadways buses, 90s cartoons — with real screenshots and how many people are inside each one right now." />
 <meta property="og:image" content="https://thechowk.online/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="द चौक · The Chowk" />
-<meta name="twitter:description" content="92 desi nostalgia sites, one screen — with live crowd counts." />
+<meta name="twitter:description" content="95 desi nostalgia sites, one screen — with live crowd counts." />
 <meta name="twitter:image" content="https://thechowk.online/og.png" />
 <link rel="canonical" href="https://thechowk.online/" />
 <title>द चौक · The Chowk — देसी नॉस्टैल्जिया वेबसाइटों का चौक</title>
@@ -1234,11 +1234,43 @@ footer a:hover { color: var(--saffron); }
 @keyframes sheetIn { from { opacity: 0; } to { opacity: 1; } }
 .sheet-card {
   position: relative; width: min(560px, 100%); max-height: 88vh; overflow-y: auto;
-  border-radius: 24px; padding: clamp(26px, 4vw, 38px);
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
-  border: 1px solid var(--line-2);
-  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 60px 120px -50px rgba(0,0,0,1);
+  border-radius: 24px; padding: clamp(26px, 4vw, 38px);
   animation: cardIn .4s var(--ease);
+}
+
+/* The sheet is real glass, not a solid plate on a blurred backdrop: the card
+   itself is translucent and the tiles behind it show through. It has to be
+   tuned per theme. At 34% opacity it reads beautifully on the dark page, and
+   on the light one it collapsed to 1.67 contrast with the labels swimming over
+   the screenshots. Light gets a denser 78% pour, which still reads as glass at
+   the edges but holds the text. Measured: labels 6.94 dark, 5.52 light, both
+   over the 4.5 floor, against 3.22 and 3.59 before. */
+.sheet {
+  background: rgba(4,5,9,.42);
+  backdrop-filter: blur(8px) saturate(120%); -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+:root[data-mode="light"] .sheet { background: rgba(30,22,14,.34); }
+.sheet-card {
+  background: color-mix(in srgb, var(--surface) 34%, transparent);
+  backdrop-filter: blur(34px) saturate(180%);
+  -webkit-backdrop-filter: blur(34px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 1px 0 rgba(255,255,255,.22) inset,
+              0 -1px 0 rgba(255,255,255,.05) inset,
+              0 40px 90px -40px rgba(0,0,0,.9);
+}
+:root[data-mode="light"] .sheet-card {
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  border-color: rgba(46,34,22,.14);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 40px 90px -46px rgba(60,40,18,.45);
+}
+/* the labels were under the contrast floor even before the glass. these sit
+   after the base .field rules in source order, so they need the extra
+   specificity to win rather than relying on where they are pasted. */
+.sheet-card .field span { color: var(--muted); }
+.sheet-card .field input { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+:root[data-mode="light"] .sheet-card .field input {
+  background: rgba(255,255,255,.5); border-color: rgba(46,34,22,.16);
 }
 @keyframes cardIn { from { transform: translateY(14px) scale(.985); } to { transform: none; } }
 .sheet-x {
@@ -1780,6 +1812,9 @@ const SITES = [
   { t:'बाउल गान', u:'https://baulgan.vibemusic.space', d:'गाँव की सड़क पर बाउल गायक, दूर कहीं एकतारा — प्लेलिस्ट से पहले वाला बांग्ला।', c:'radio', g:'🪕', h:44, p:'p-dots', k:'baul gan bengali folk ektara village anik das vibemusic', maker:'Anik Das', handle:'Dev_anik2003', mv:1, te:'Baul Gaan', de:'A Baul singer on a village road and an ektara in the distance — Bengali folk from before the playlists.' },
   { t:'रक्षाबंधन', u:'https://rakshabandhan.me', d:'रील्स से पहले — दूरदर्शन पर "फूलों का तारों का" और दीदी राखी बाँधती हुई।', c:'tyohar', g:'🪢', h:340, p:'p-dots', k:'rakshabandhan rakhi doordarshan phoolon ka taaron ka didi nishan', maker:'Nishan', handle:'thenishandas', mv:1, te:'Raksha Bandhan', de:'Before reels — Doordarshan playing "Phoolon ka taaron ka" while didi tied the rakhi.' },
   { t:'टुक टुक', u:'https://tuktuk-iota.vercel.app', d:'टुक टुक में बैठे-बैठे हिमेश — अपनी प्लेलिस्ट डालिए और किसी ख़ास को भेजिए।', c:'bus', g:'🛺', h:8, p:'p-stripe', k:'tuk tuk himesh reshammiya youtube playlist ankit sharma auto rickshaw', maker:'Ankit Sharma', handle:'ankitsharmatv', mv:1, te:'Tuk Tuk', de:'Himesh from the back of a tuk tuk — drop in your own playlist and send it to someone.' },
+  { t:'नॉस्टैल्जिक', u:'https://www.nostalgic.best', d:'पुराने गानों वाला रेडियो और स्क्रीनसेवर — जिम जैम से लेकर तन्हाई तक कई प्लेलिस्ट।', c:'radio', g:'📻', h:268, p:'p-rays', k:'nostalgic best aesthetic radio screensaver gym jam playlists vedanshh', maker:'Vedanshh', handle:'', mv:1, te:'Nostalgic', de:'An aesthetic radio and screensaver — several playlists, from gym jam to tanhai.' },
+  { t:'भाई के गाने', u:'https://bhai-k-gaane.bpss.in', d:'सलमान वाले सारे गाने एक जगह — चुनरी चुनरी से लेकर आगे तक।', c:'retro', g:'🕶️', h:14, p:'p-stripe', k:'bhai ke gaane salman khan bollywood 90s 2000s yt music', maker:'', handle:'', te:'Bhai Ke Gaane', de:'Every Salman song in one place, from Chunnari Chunnari onward.' },
+  { t:'नुसरत की महफ़िल', u:'https://nfak-goated.vercel.app', d:'नुसरत साहब की रात भर चलने वाली महफ़िल — अठारह क़व्वालियाँ, एक के बाद एक।', c:'radio', g:'🎙️', h:292, p:'p-rays', k:'nfak nusrat fateh ali khan qawwali after dark mehfil harshit', maker:'Harshit', handle:'harshitlog', mv:1, te:'NFAK After Dark', de:'Nusrat all night — eighteen qawwalis, one after another.' },
 ];
 
 /* ============================================================

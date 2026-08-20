@@ -1,6 +1,6 @@
 # देसी नॉस्टैल्जिया आर्काइव
 
-92 Indian nostalgia websites on one screen, with real screenshots and how many
+95 Indian nostalgia websites on one screen, with real screenshots and how many
 people each site says are inside it right now.
 
 ## Deploying
@@ -17,7 +17,7 @@ That is the whole deploy. Files that must ship:
 | file | what it is |
 |---|---|
 | `index.html` | the page — markup, styles, script, inlined fonts |
-| `shots.js` | 92 screenshots as data URIs (~3.9 MB) |
+| `shots.js` | 95 screenshots as data URIs (~3.9 MB) |
 | `palette.js` | two colours pulled out of each screenshot |
 | `crowd.js` | each site's scraped count + the time it was read |
 | `frameable.js` | which sites allow being embedded live on hover |
