@@ -21,6 +21,9 @@ frameable.js       -text -diff
 logo.js            -text -diff
 artifact.html      -text -diff
 
+# the permanent log is append-only, so two sides are both right: concatenate
+history/*.ndjson merge=union
+
 # images and fonts
 *.png binary
 *.jpg binary
