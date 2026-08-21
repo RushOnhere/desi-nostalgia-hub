@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /andar.html
 
 Sitemap: https://thechowk.online/sitemap.xml

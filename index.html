@@ -94,7 +94,7 @@
   --ink:        #f4efe6;
   --ink-2:      #efe8dc;
   --surface:    #fffdf9;
-  --surface-2:  #fffefb;
+  --surface-2:  #fffefb;
   --grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45'%3E%3Cpath d='M.5 45V.5H45' fill='none' stroke='%232e2216' stroke-opacity='.26' stroke-dasharray='4 2'/%3E%3C/svg%3E");
   --line:       rgba(46, 34, 22, .13);
   --line-2:     rgba(46, 34, 22, .24);
@@ -115,7 +115,7 @@
     --ink:        #f4efe6;
     --ink-2:      #efe8dc;
     --surface:    #fffdf9;
-    --surface-2:  #fffefb;
+    --surface-2:  #fffefb;
     --grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='45'%3E%3Cpath d='M.5 45V.5H45' fill='none' stroke='%232e2216' stroke-opacity='.26' stroke-dasharray='4 2'/%3E%3C/svg%3E");
     --line:       rgba(46, 34, 22, .13);
     --line-2:     rgba(46, 34, 22, .24);
@@ -1298,7 +1298,7 @@ footer a:hover { color: var(--saffron); }
 @keyframes sheetIn { from { opacity: 0; } to { opacity: 1; } }
 .sheet-card {
   position: relative; width: min(560px, 100%); max-height: 88vh; overflow-y: auto;
-  border-radius: 24px; padding: clamp(26px, 4vw, 38px);
+  border-radius: 24px; padding: clamp(26px, 4vw, 38px);
   animation: cardIn .4s var(--ease);
 }
 
@@ -3209,6 +3209,29 @@ const Presence = (() => {
 
   let poll = null, live = {};
 
+  /* --- the archive's own presence ---
+     Anonymous: a random id kept for this browser session only, plus which of
+     the page's views you are in. No URL, no IP, no fingerprint, nothing that
+     identifies a person, and it is pruned after five minutes. The public
+     live_counts() deliberately excludes 'hub', so these numbers are readable
+     only through hub_pulse(token), which is Rush's alone. */
+  let me = sessionStorage.getItem('dna-me');
+  if (!me) {
+    me = (crypto.randomUUID ? crypto.randomUUID()
+      : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c =>
+          (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)));
+    sessionStorage.setItem('dna-me', me);
+  }
+  const whereAmI = () => {
+    if (document.getElementById('tv') && document.getElementById('tv').classList.contains('on')) return 'tapri';
+    if (document.getElementById('submit') && document.getElementById('submit').classList.contains('on')) return 'submit';
+    return (typeof view !== 'undefined' && view === 'seats') ? 'seats' : 'grid';
+  };
+  let beat = null;
+  const thump = () => { rpc('heartbeat', { p_site: 'hub', p_visitor: me, p_ctx: whereAmI() }).catch(() => {}); };
+  function beatStart() { if (beat) return; thump(); beat = setInterval(thump, 20000); }
+  function beatStop() { clearInterval(beat); beat = null; }
+
   /* a site carrying the badge reports its own listeners, so that number
      replaces the scraped one */
   function applyToCards() {
@@ -3235,10 +3258,11 @@ const Presence = (() => {
     } catch {}
   }
 
-  function stop() { clearInterval(poll); poll = null; }
+  function stop() { clearInterval(poll); poll = null; beatStop(); }
   function go() {
     if (poll) return;
     refresh();
+    beatStart();
     poll = setInterval(refresh, cfg.pollMs);
   }
 

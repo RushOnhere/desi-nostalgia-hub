@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<title>अंदर</title>
+<style>
+  :root { --ink:#000; --surface:#100d0a; --line:rgba(255,255,255,.10);
+          --text:#edf0f6; --muted:#8d8781; --amb:#b3652d; --good:#4ade80; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; background:var(--ink); color:var(--text);
+         font:400 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+         display:grid; place-items:center; padding:24px; }
+  .wrap { width:min(520px,100%); }
+  h1 { font-size:15px; font-weight:400; color:var(--muted); letter-spacing:.16em;
+       text-transform:uppercase; margin:0 0 20px; }
+  .big { font-size:clamp(76px,18vw,132px); line-height:.95; letter-spacing:-.03em; margin:0; font-variant-numeric:tabular-nums; }
+  .sub { color:var(--muted); margin:6px 0 26px; }
+  .pip { display:inline-block; width:9px; height:9px; border-radius:50%;
+         background:var(--good); box-shadow:0 0 12px var(--good); margin-right:9px;
+         vertical-align:middle; animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .rows { border-top:1px solid var(--line); }
+  .row { display:flex; justify-content:space-between; align-items:baseline;
+         padding:13px 2px; border-bottom:1px solid var(--line); }
+  .row span:first-child { color:var(--muted); }
+  .row b { font-weight:400; font-variant-numeric:tabular-nums; font-size:19px; }
+  .foot { margin-top:22px; color:#5a544e; font-size:12.5px; }
+  input { width:100%; height:46px; padding:0 14px; border-radius:11px; margin:8px 0 12px;
+          border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text);
+          font:400 15px system-ui; outline:none; }
+  input:focus { border-color:var(--amb); }
+  button { height:46px; padding:0 20px; border-radius:11px; cursor:pointer;
+           border:0; background:#e9dfcc; color:#14100c; font:500 15px system-ui; }
+  .err { color:#e0705a; min-height:20px; font-size:13.5px; }
+  .hide { display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>अंदर · who is in the chowk</h1>
+
+  <form id="gate">
+    <p class="sub">This page is not linked from anywhere and shows nothing without the key.</p>
+    <input id="k" type="password" placeholder="key" autocomplete="off" spellcheck="false" />
+    <button type="submit">देखिए</button>
+    <p class="err" id="err"></p>
+  </form>
+
+  <div id="live" class="hide">
+    <p class="big"><span class="pip"></span><span id="n">—</span></p>
+    <p class="sub">in the chowk right now</p>
+    <div class="rows">
+      <div class="row"><span>last 5 minutes</span><b id="m5">—</b></div>
+      <div class="row"><span>ग्रिड</span><b id="w-grid">—</b></div>
+      <div class="row"><span>सीट चार्ट</span><b id="w-seats">—</b></div>
+      <div class="row"><span>टपरी मोड</span><b id="w-tapri">—</b></div>
+      <div class="row"><span>अपनी साइट जोड़िए</span><b id="w-submit">—</b></div>
+    </div>
+    <p class="foot" id="foot">reading every 10 seconds</p>
+  </div>
+</div>
+
+<script src="presence.js"></script>
+<script>
+/* Everything here needs the key. Without it the function refuses at the
+   database, not in this page, so reading the source gets you nothing. */
+const cfg = window.PRESENCE || {};
+const $ = id => document.getElementById(id);
+let key = localStorage.getItem('chowk-key') || '';
+
+async function pulse() {
+  const r = await fetch(cfg.url + '/rest/v1/rpc/hub_pulse', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', apikey: cfg.key, Authorization: 'Bearer ' + cfg.key },
+    body: JSON.stringify({ p_token: key })
+  });
+  if (!r.ok) throw new Error('that key does not work');
+  return r.json();
+}
+
+function paint(d) {
+  $('n').textContent = d.now;
+  $('m5').textContent = d.min5;
+  const w = d.where || {};
+  for (const k of ['grid', 'seats', 'tapri', 'submit']) $('w-' + k).textContent = w[k] || 0;
+  $('foot').textContent = 'read at ' + new Date(d.read_at).toLocaleTimeString('en-IN',
+    { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' IST';
+  document.title = d.now + ' · अंदर';
+}
+
+async function start() {
+  try {
+    paint(await pulse());
+    $('gate').classList.add('hide');
+    $('live').classList.remove('hide');
+    localStorage.setItem('chowk-key', key);
+    setInterval(async () => { try { paint(await pulse()); } catch (e) {} }, 10000);
+  } catch (e) {
+    $('err').textContent = e.message;
+    localStorage.removeItem('chowk-key');
+  }
+}
+
+$('gate').addEventListener('submit', e => { e.preventDefault(); key = $('k').value.trim(); $('err').textContent = ''; start(); });
+
+// a key in the address bar works once, then is wiped out of the url
+const fromUrl = new URLSearchParams(location.search).get('k');
+if (fromUrl) { key = fromUrl; history.replaceState(null, '', location.pathname); }
+if (key) start();
+</script>
+</body>
+</html>
